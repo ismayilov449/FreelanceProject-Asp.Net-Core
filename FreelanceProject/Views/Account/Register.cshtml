@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+
+<form asp-action="RegisterAsFreelancer" method="post">
+
+    @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+
+    <button type="submit" class="btn btn-primary">As Freelancer</button>
+
+</form>
+ 
+<form asp-action="RegisterAsClient" method="post">
+
+    @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+
+    <button type="submit" class="btn btn-primary">As Client</button>
+
+</form>
