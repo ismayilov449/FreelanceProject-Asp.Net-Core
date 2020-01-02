@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace FreelanceProject.Models
 {
     public class RegisterModel
     {
+
+
         [Required]
         public string Name { get; set; }
 
@@ -19,6 +22,9 @@ namespace FreelanceProject.Models
        
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public IdentityRole Role { get; set; }
 
 
     }

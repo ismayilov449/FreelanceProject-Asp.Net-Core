@@ -14,5 +14,20 @@ namespace FreelanceProject.Controllers
         {
             return View();
         }
+
+        [Authorize(Roles = "Freelancer")]
+        public IActionResult IndexForFreelancer()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Client")]
+        public IActionResult IndexForClient()
+        {
+            return View();
+        }
+
+
+
     }
 }

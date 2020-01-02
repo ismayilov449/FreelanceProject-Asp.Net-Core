@@ -1,22 +1,43 @@
-﻿
+﻿@model RegisterModel
+
+
 @{
     ViewData["Title"] = "Register";
 }
 
-<h1>Register</h1>
+<div class="bg-primary text-white p-1 m-1">
+    <h2>Register user</h2>
+</div>
 
-<form asp-action="RegisterAsFreelancer" method="post">
+<form class="m-1 p-1" asp-action="Register" method="post">
 
-    @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+    <div class="text-danger" asp-validation-summary="All"></div>
 
-    <button type="submit" class="btn btn-primary">As Freelancer</button>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+
+        <label asp-for="Surname"></label>
+        <input asp-for="Surname" class="form-control" />
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+
+        <label asp-for="Role"></label>
+        <select asp-for="Role.Name" class="form-control">
+            <option >Freelancer</option>
+            <option>Client</option>
+        </select>
+
+
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <a asp-action="Index" class="btn btn-danger">Cancel</a>
+
 
 </form>
- 
-<form asp-action="RegisterAsClient" method="post">
 
-    @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
-
-    <button type="submit" class="btn btn-primary">As Client</button>
-
-</form>

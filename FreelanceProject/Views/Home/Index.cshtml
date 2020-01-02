@@ -3,5 +3,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
+
+@if (@User.Identity.IsAuthenticated)
+{
+    <span>@User.Identity.Name -  </span>
+
+    <a asp-action="Logout" asp-controller="Account" class="btn btn-danger">
+        Logout
+    </a>
+
+    <a asp-action="Logout" asp-controller="Account" class="btn btn-danger">
+        Logout
+    </a>
+}
+else
+{
+    <a asp-action="Login" asp-controller="Account" class="btn btn-primary">
+        Login
+    </a>
+    <a asp-action="Register" asp-controller="Account" class="btn btn-primary">
+        Register
+    </a>
+}
