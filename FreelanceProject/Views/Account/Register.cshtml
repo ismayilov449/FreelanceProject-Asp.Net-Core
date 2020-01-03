@@ -5,6 +5,8 @@
     ViewData["Title"] = "Register";
 }
 
+
+
 <div class="bg-primary text-white p-1 m-1">
     <h2>Register user</h2>
 </div>
@@ -26,12 +28,15 @@
         <label asp-for="Password"></label>
         <input asp-for="Password" class="form-control" />
 
+       
+
         <label asp-for="Role"></label>
-        <select asp-for="Role.Name" class="form-control">
-            <option >Freelancer</option>
+        <select asp-for="Role.Name" class="form-control"> @*id="roleSelect" onchange="roleSelectFunction()"*@
+            <option disabled selected>Select</option>
+            <option>Freelancer</option>
             <option>Client</option>
         </select>
-
+       
 
     </div>
 
@@ -41,3 +46,31 @@
 
 </form>
 
+@*<script language="Javascript">
+    
+function roleSelectFunction() {
+  var x = document.getElementById("roleSelect").value;
+   
+    if(document.getElementById("roleSelect").value == "Freelancer"){
+
+        document.getElementById("registerDiv").innerHTML = "";
+       
+        document.getElementById("registerDiv").innerHTML += 
+        "<label >Address</label>"+
+        "<input asp-for="" class='form-control' />"+
+
+        "<label >Skills</label>"+
+        "<input asp-for='Skills' class='form-control' />"+
+
+        "<label>WorkHoursPerWeek</label>"+
+        "<input asp-for='WorkHoursPerWeek' class='form-control' />";
+    }else
+    {
+        document.getElementById("registerDiv").innerHTML = "";
+         document.getElementById("registerDiv").innerHTML += 
+        " <label asp-for='CompanyName'>Company Name</label>"+
+        "<input asp-for='CompanyName' class='form-control' />";
+       
+    }
+}
+</script>*@

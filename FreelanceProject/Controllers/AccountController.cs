@@ -14,20 +14,17 @@ namespace FreelanceProject.Controllers
     {
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
+
         private RoleManager<IdentityRole> roleManager;
 
-        private IPasswordValidator<User> passwordValidator;
-        private IPasswordHasher<User> passwordHasher;
 
-        public AccountController(RoleManager<IdentityRole> _roleManager, UserManager<User> _userManager, SignInManager<User> _signInManager, IPasswordValidator<User> _passwordValidator, IPasswordHasher<User> _passwordHasher)
+        public AccountController(RoleManager<IdentityRole> _roleManager, UserManager<User> _userManager, SignInManager<User> _signInManager )
         {
             roleManager = _roleManager;
 
             userManager = _userManager;
             signInManager = _signInManager;
-
-            passwordValidator = _passwordValidator;
-            passwordHasher = _passwordHasher;
+ 
         }
 
 
@@ -56,7 +53,19 @@ namespace FreelanceProject.Controllers
 
                     if (result.Succeeded)
                     {
-                        return Redirect(returnUrl ?? "/");
+                        var roleresult = await userManager.GetRolesAsync(user);
+
+                     
+
+                        if (roleresult.FirstOrDefault().ToString() == "Freelancer")
+                        {
+                            return RedirectToAction("IndexForFreelancer", "Home");
+                        }
+                        else
+                        {
+                            return RedirectToAction("IndexForClient", "Home");
+                        }
+
 
                     }
 
@@ -124,96 +133,7 @@ namespace FreelanceProject.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterAsFreelancer(RegisterModel model)
-        {
-
-            Random random = new Random();
-
-
-            if (ModelState.IsValid)
-            {
-                var tempusername = model.Name.Substring(0, 3) + model.Surname.Substring(1, 4) + "_" + random.Next(1, 100);
-                var user = new User()
-                {
-
-
-                    UserName = tempusername.ToLower(),
-                    Email = model.Email,
-                    Surname = model.Surname
-
-                };
-
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var currentUser = await userManager.FindByNameAsync(user.UserName);
-
-
-                    var roleresult = await userManager.AddToRoleAsync(currentUser, "Freelancer");
-
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegisterAsClient(RegisterModel model)
-        {
-            Random random = new Random();
-
-            if (ModelState.IsValid)
-            {
-                var tempusername = model.Name.Substring(0, 3) + model.Surname.Substring(1, 4) + "_" + random.Next(1, 100);
-                var user = new User()
-                {
-
-
-                    UserName = tempusername.ToLower(),
-                    Email = model.Email,
-                    Surname = model.Surname
-
-                };
-
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var currentUser = await userManager.FindByNameAsync(user.UserName);
-
-
-                    var roleresult = await userManager.AddToRoleAsync(currentUser, "Client");
-
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Login", "Account");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+      
 
         public async Task<IActionResult> Logout()
         {

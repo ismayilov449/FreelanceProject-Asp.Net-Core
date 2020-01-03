@@ -9,9 +9,10 @@ namespace FreelanceProject.Models
 {
     public class Client : IdentityUser
     {
-
+      
+        public int Id { get; set; }
         public User User { get; set; }
-        public short CompanyName { get; set; }
+        public string CompanyName { get; set; }
 
     }
 }

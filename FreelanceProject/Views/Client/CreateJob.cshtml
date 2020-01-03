@@ -1,0 +1,475 @@
+﻿@model JobClientModel
+@using FreelanceProject.Services
+
+@{
+    ViewData["Title"] = "CreateJob";
+}
+
+<div class="bg-primary text-white p-1 m-1">
+    <h2>Create Job</h2>
+</div>
+
+<form class="m-1 p-1" asp-action="CreateJob" method="post">
+
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <div class="form-group">
+
+        <p>Create a Job</p>
+
+        <label asp-for="@Model.Client.Email"></label>
+        <input asp-for="@Model.Client.Email" class="form-control" />
+
+        <label asp-for="@Model.Client.PhoneNumber"></label>
+        <input asp-for="@Model.Client.PhoneNumber" class="form-control" />
+
+        <label asp-for="@Model.Job.JobCategory.CategoryName"></label>
+        <select class="form-control" asp-for="@Model.Job.JobCategory.CategoryName">
+            <option disabled selected>Choose..</option>
+            @foreach (var item in @FakeRepo.GetCategories())
+            {
+                <option>@item</option>
+            }
+        </select>
+
+        <label asp-for="@Model.Job.Position"></label>
+        <input asp-for="@Model.Job.Position" class="form-control" />
+
+
+        <label asp-for="@Model.Job.City"></label>
+        <select class="form-control" asp-for="@Model.Job.City">
+            <option disabled selected>Choose..</option>
+            @foreach (var item in @FakeRepo.GetCities())
+            {
+                <option>@item</option>
+            }
+        </select>
+
+        <label asp-for="@Model.Job.Price"></label>
+        <input asp-for="@Model.Job.Price" class="form-control" />
+
+        <label asp-for="@Model.Job.Age"></label>
+        <input asp-for="@Model.Job.Age" class="form-control" />
+
+        <label asp-for="@Model.Job.Education"></label>
+        <select class="form-control" asp-for="@Model.Job.Education">
+            <option disabled selected>Choose..</option>
+            @foreach (var item in @FakeRepo.GetEducation())
+            {
+                <option>@item</option>
+            }
+        </select>
+
+        <label asp-for="@Model.Job.Practise"></label>
+        <select class="form-control" asp-for="@Model.Job.Practise">
+            <option disabled selected>Choose..</option>
+            @foreach (var item in @FakeRepo.GetPractise())
+            {
+                <option>@item</option>
+            }
+        </select>
+
+        <label asp-for="@Model.Job.RequiredSkills"></label>
+        <textarea asp-for="@Model.Job.RequiredSkills" class="form-control"></textarea>
+
+        <label asp-for="@Model.Job.Description"></label>
+        <textarea asp-for="@Model.Job.Description" class="form-control"></textarea>
+
+        <label asp-for="@Model.Client.CompanyName"></label>
+        <input asp-for="@Model.Client.CompanyName" class="form-control" />
+
+       
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <a asp-action="Index" class="btn btn-danger">Cancel</a>
+
+
+</form>
+
+@*<div class="base_form lot-postform" style="opacity: 1;">
+        <fieldset class="full">
+            <div class="fieldset-title">ELAN</div><input type="hidden" name="commit" id="commit" value="full"><div class="input grouped_collection optional ad_category_id">
+                <label class="grouped_collection optional control-label" for="ad_category_id">Kateqoriya</label><select class="grouped_collection optional form-control" name="ad[category_id]" id="ad_category_id">
+                    <option value=""></option>
+                    <optgroup label="Maliyyə">
+                        <option value="48">Kredit mütəxəssisi</option>
+                        <option value="49">Sığorta</option>
+                        <option value="51">Audit</option>
+                        <option value="52">Mühasibat</option>
+                        <option value="57">Maliyyə analiz</option>
+                        <option value="150">Bank xidməti</option>
+                        <option value="154">Kassir</option>
+                        <option value="155">İqtisadçı</option>
+                        <option value="129">Digər</option>
+                    </optgroup>
+                    <optgroup label="Marketinq">
+                        <option value="64">Marketinq menecment</option>
+                        <option value="61">İctimayətlə əlaqələr</option>
+                        <option value="62">Reklam</option>
+                        <option value="60">Kopiraytinq</option>
+                    </optgroup>
+                    <optgroup label="İnformasiya texnologiyaları">
+                        <option value="66">Sistem idarəetməsi</option>
+                        <option value="67">Məlumat bazasının idarə edilməsi və inkişafı</option>
+                        <option value="68">İT mütəxəssisi / məsləhətçi</option>
+                        <option value="69">Proqramlaşdırma</option>
+                        <option value="70">İT layihələrin idarə edilməsi</option>
+                        <option value="71">Texniki avadanlıq mütəxəssisi</option>
+                        <option value="72">Digər</option>
+                    </optgroup>
+                    <optgroup label="İnzibati">
+                        <option value="105">İnzibati dəstək</option>
+                        <option value="108">Menecment</option>
+                        <option value="110">Ofis menecmenti</option>
+                        <option value="112">Katibə / Resepşn</option>
+                        <option value="143">Heyətin idarəolunması</option>
+                        <option value="113">Digər</option>
+                    </optgroup>
+                    <optgroup label="Satış">
+                        <option value="83">Daşınmaz əmlak agenti / makler</option>
+                        <option value="86">Satış üzrə mütəxəssis</option>
+                    </optgroup>
+                    <optgroup label="Dizayn">
+                        <option value="159">Veb-dizayn</option>
+                        <option value="97">Memar / İnteryer dizaynı</option>
+                        <option value="99">Geyim dizaynı</option>
+                        <option value="101">Rəssam</option>
+                        <option value="104">Digər</option>
+                    </optgroup>
+                    <optgroup label="Hüquqşünaslıq">
+                        <option value="73">Vəkil</option>
+                        <option value="74">Cinayət hüququ</option>
+                        <option value="79">Hüquqşünas</option>
+                        <option value="151">Digər</option>
+                    </optgroup>
+                    <optgroup label="Təhsil və elm">
+                        <option value="119">Məktəb tədrisi</option>
+                        <option value="120">Universitet tədrisi</option>
+                        <option value="121">Repetitor</option>
+                        <option value="122">Xüsusi təhsil/ Təlim</option>
+                        <option value="145">Digər</option>
+                    </optgroup>
+                    <optgroup label="Sənaye və kənd təsərrüfatı">
+                        <option value="91">Avtomatlaşdırılmış idarəetmə</option>
+                        <option value="92">Tikinti</option>
+                        <option value="95">Kənd təsərrüfatı</option>
+                        <option value="93">Mühəndis</option>
+                        <option value="94">Geologiya və ətraf mühit</option>
+                        <option value="96">Digər</option>
+                    </optgroup>
+                    <optgroup label="Xidmət">
+                        <option value="157">Xadimə</option>
+                        <option value="158">Anbardar</option>
+                        <option value="134">Restoran işi</option>
+                        <option value="135">Sürücü</option>
+                        <option value="136">Dayə</option>
+                        <option value="137">Fəhlə</option>
+                        <option value="142">Turizm və mehmanxana işi</option>
+                        <option value="144">Tərcüməçi</option>
+                        <option value="153">Mühafizə xidməti</option>
+                        <option value="149">Digər</option>
+                        <option value="193">SPA və gözəllik</option>
+                        <option value="156">Kuryer</option>
+                    </optgroup>
+                    <optgroup label="Tibb və əczaçılıq">
+                        <option value="139">Həkim</option>
+                        <option value="140">Tibbi personal</option>
+                        <option value="141">Tibb təmsilçisi</option>
+                    </optgroup>
+                    <optgroup label="Müxtəlif">
+                        <option value="148">Jurnalistika</option>
+                        <option value="160">Tələbələr üçün</option>
+                    </optgroup>
+                </select>
+            </div><div class="input string optional ad_position_name"><label class="string optional control-label" for="ad_position_name">Vəzifə</label><input maxlength="255" class="string optional form-control" size="255" type="text" name="ad[position_name]" id="ad_position_name"></div><div class="input select optional ad_region">
+                <label class="select optional control-label" for="ad_region_id">Şəhər</label><select class="select optional form-control" name="ad[region_id]" id="ad_region_id">
+                    <option value=""></option>
+                    <option value="28">Ağcabədi</option>
+                    <option value="12">Ağdam</option>
+                    <option value="83">Ağdaş</option>
+                    <option value="85">Ağstafa</option>
+                    <option value="34">Ağsu</option>
+                    <option value="1">Bakı</option>
+                    <option value="73">Balakən</option>
+                    <option value="30">Beyləqan</option>
+                    <option value="31">Bərdə</option>
+                    <option value="26">Biləsuvar</option>
+                    <option value="72">Cəlilabad</option>
+                    <option value="84">Daşkəsən</option>
+                    <option value="7">Əli-Bayramlı</option>
+                    <option value="23">Füzuli </option>
+                    <option value="86">Gədəbəy</option>
+                    <option value="4">Gəncə</option>
+                    <option value="81">Goranboy</option>
+                    <option value="29">Göyçay</option>
+                    <option value="25">İmişli</option>
+                    <option value="3">İsmayıllı</option>
+                    <option value="27">Kürdəmir</option>
+                    <option value="82">Lerik</option>
+                    <option value="11">Lənkaran</option>
+                    <option value="16">Masallı</option>
+                    <option value="6">Mingəçevir</option>
+                    <option value="14">Naftalan</option>
+                    <option value="8">Naxçıvan</option>
+                    <option value="39">Qaradağ</option>
+                    <option value="38">Qax</option>
+                    <option value="15">Qazax</option>
+                    <option value="76">Qəbələ</option>
+                    <option value="18">Quba</option>
+                    <option value="19">Qusar</option>
+                    <option value="33">Saatlı</option>
+                    <option value="24">Sabirabad</option>
+                    <option value="80">Şabran</option>
+                    <option value="22">Salyan</option>
+                    <option value="21">Şamaxı</option>
+                    <option value="35">Samux</option>
+                    <option value="9">Şəki</option>
+                    <option value="13">Şəmkir</option>
+                    <option value="79">Şərur</option>
+                    <option value="78">Şirvan</option>
+                    <option value="74">Siyəzən</option>
+                    <option value="5">Sumqayıt</option>
+                    <option value="32">Tərtər</option>
+                    <option value="17">Tovuz</option>
+                    <option value="20">Xaçmaz</option>
+                    <option value="75">Xırdalan</option>
+                    <option value="37">Xızı</option>
+                    <option value="77">Yardımlı</option>
+                    <option value="10">Yevlax</option>
+                    <option value="2">Zaqatala</option>
+                </select>
+            </div><div class="input string required ad_salary">
+                <label class="string required control-label" for="ad_salary">Maaş <abbr title="required">*</abbr></label><span class="input-range">
+                    <label for="ad_salary_from">minimum</label><select class="select optional form-control salary_from" name="ad[salary_from]" id="ad_salary_from">
+                        <option value=""></option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                        <option value="600">600</option>
+                        <option value="700">700</option>
+                        <option value="800">800</option>
+                        <option value="900">900</option>
+                        <option value="1000">1000</option>
+                        <option value="1100">1100</option>
+                        <option value="1200">1200</option>
+                        <option value="1300">1300</option>
+                        <option value="1400">1400</option>
+                        <option value="1500">1500</option>
+                        <option value="1600">1600</option>
+                        <option value="1700">1700</option>
+                        <option value="1800">1800</option>
+                        <option value="1900">1900</option>
+                        <option value="2000">2000</option>
+                        <option value="2100">2100</option>
+                        <option value="2200">2200</option>
+                        <option value="2300">2300</option>
+                        <option value="2400">2400</option>
+                        <option value="2500">2500</option>
+                        <option value="2600">2600</option>
+                        <option value="2700">2700</option>
+                        <option value="2800">2800</option>
+                        <option value="2900">2900</option>
+                        <option value="3000">3000</option>
+                        <option value="3100">3100</option>
+                        <option value="3200">3200</option>
+                        <option value="3300">3300</option>
+                        <option value="3400">3400</option>
+                        <option value="3500">3500</option>
+                        <option value="3600">3600</option>
+                        <option value="3700">3700</option>
+                        <option value="3800">3800</option>
+                        <option value="3900">3900</option>
+                        <option value="4000">4000</option>
+                        <option value="5000">5000</option>
+                        <option value="6000">6000</option>
+                        <option value="7000">7000</option>
+                        <option value="8000">8000</option>
+                        <option value="9000">9000</option>
+                        <option value="10000">10000</option>
+                        <option value="11000">11000</option>
+                        <option value="12000">12000</option>
+                    </select>
+                </span><span class="input-range">
+                    <label for="ad_salary_to">maks.</label><select class="select optional form-control salary_to" name="ad[salary_to]" id="ad_salary_to">
+                        <option value=""></option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                        <option value="600">600</option>
+                        <option value="700">700</option>
+                        <option value="800">800</option>
+                        <option value="900">900</option>
+                        <option value="1000">1000</option>
+                        <option value="1100">1100</option>
+                        <option value="1200">1200</option>
+                        <option value="1300">1300</option>
+                        <option value="1400">1400</option>
+                        <option value="1500">1500</option>
+                        <option value="1600">1600</option>
+                        <option value="1700">1700</option>
+                        <option value="1800">1800</option>
+                        <option value="1900">1900</option>
+                        <option value="2000">2000</option>
+                        <option value="2100">2100</option>
+                        <option value="2200">2200</option>
+                        <option value="2300">2300</option>
+                        <option value="2400">2400</option>
+                        <option value="2500">2500</option>
+                        <option value="2600">2600</option>
+                        <option value="2700">2700</option>
+                        <option value="2800">2800</option>
+                        <option value="2900">2900</option>
+                        <option value="3000">3000</option>
+                        <option value="3100">3100</option>
+                        <option value="3200">3200</option>
+                        <option value="3300">3300</option>
+                        <option value="3400">3400</option>
+                        <option value="3500">3500</option>
+                        <option value="3600">3600</option>
+                        <option value="3700">3700</option>
+                        <option value="3800">3800</option>
+                        <option value="3900">3900</option>
+                        <option value="4000">4000</option>
+                        <option value="5000">5000</option>
+                        <option value="6000">6000</option>
+                        <option value="7000">7000</option>
+                        <option value="8000">8000</option>
+                        <option value="9000">9000</option>
+                        <option value="10000">10000</option>
+                        <option value="11000">11000</option>
+                        <option value="12000">12000</option>
+                    </select>
+                </span><div class="input-append">AZN</div>
+            </div><div class="input string required ad_age">
+                <label class="string required control-label" for="ad_age">Yaş <abbr title="required">*</abbr></label><span class="input-range">
+                    <label for="ad_age_from">minimum</label><select class="select optional form-control age_from" name="ad[age_from]" id="ad_age_from">
+                        <option value=""></option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                        <option value="60">60</option>
+                        <option value="61">61</option>
+                        <option value="62">62</option>
+                        <option value="63">63</option>
+                        <option value="64">64</option>
+                        <option value="65">65</option>
+                    </select>
+                </span><span class="input-range">
+                    <label for="ad_age_from">maks.</label><select class="select optional form-control age_to" name="ad[age_to]" id="ad_age_to">
+                        <option value=""></option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                        <option value="60">60</option>
+                        <option value="61">61</option>
+                        <option value="62">62</option>
+                        <option value="63">63</option>
+                        <option value="64">64</option>
+                        <option value="65">65</option>
+                    </select>
+                </span><div class="input-append">il</div>
+            </div><div class="input select optional ad_education">
+                <label class="select optional control-label" for="ad_education_id">Təhsil</label><select class="select optional form-control" name="ad[education_id]" id="ad_education_id">
+                    <option value=""></option>
+                    <option value="1">Elmi dərəcə</option>
+                    <option value="2">Ali</option>
+                    <option value="3">Natamam ali</option>
+                    <option value="4">Orta texniki</option>
+                    <option value="5">Orta xüsusi</option>
+                    <option value="6">Orta</option>
+                    <option value="7">-</option>
+                </select>
+            </div><div class="input select optional ad_experience">
+                <label class="select optional control-label" for="ad_experience_id">İş təcrübəsi</label><select class="select optional form-control" name="ad[experience_id]" id="ad_experience_id">
+                    <option value=""></option>
+                    <option value="1">1 ildən aşağı</option>
+                    <option value="2">1 ildən 3 ilə qədər</option>
+                    <option value="3">3 ildən 5 ilə qədər</option>
+                    <option value="4">5 ildən artıq</option>
+                </select>
+            </div><div class="input text optional ad_requirements"><label class="text optional control-label" for="ad_requirements">Namizədə tələblər</label><textarea class="text optional form-control" name="ad[requirements]" id="ad_requirements"></textarea></div><div class="input text optional ad_job_description"><label class="text optional control-label" for="ad_job_description">İş barədə məlumat</label><textarea class="text optional form-control" name="ad[job_description]" id="ad_job_description"></textarea></div><div id="ad_company_line" class="input string optional ad_company_name"><label class="string optional control-label" for="ad_company_name">Şirkətin adı</label><input maxlength="140" class="string optional form-control" size="140" type="text" name="ad[company_name]" id="ad_company_name"></div><div class="input string optional ad_contact"><label class="string optional control-label" for="ad_contact">Əlaqədar şəxs</label><input class="string optional form-control" type="text" name="ad[contact]" id="ad_contact"></div>
+        </fieldset><div class="btn-container"><button name="button" type="submit" class="btn btn_primary" data-disable-with="Göndərilir...">Yerləşdirin</button></div>
+    </div>*@

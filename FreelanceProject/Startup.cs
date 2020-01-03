@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FreelanceProject.Models;
+using FreelanceProject.Repository.Abstract;
+using FreelanceProject.Repository.Concrete.EntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +23,13 @@ namespace FreelanceProject
             services.AddDbContext<UserIdentityDbContext>(options =>
           options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=UsersDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
+
+            services.AddDbContext<ProjectContext>(options =>
+        options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=FreelanceProjectDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
+
+
+           
+
             services.AddIdentity<User, IdentityRole>(options =>
             {
 
@@ -36,6 +45,11 @@ namespace FreelanceProject
             })
                            .AddEntityFrameworkStores<UserIdentityDbContext>()
                            .AddDefaultTokenProviders();
+
+            services.AddTransient<IJobRepository, EfJobRepository>();
+            services.AddTransient<IClientRepository, EfClientRepository>();
+            services.AddTransient<IFreelancerRepository, EfFreelancerRepository>();
+            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
 
             services.AddMvc();
 

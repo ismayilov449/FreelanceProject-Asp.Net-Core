@@ -11,4 +11,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\Project\" />
+  </ItemGroup>
+
 </Project>

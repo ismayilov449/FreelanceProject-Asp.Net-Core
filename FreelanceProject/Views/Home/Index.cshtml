@@ -5,19 +5,64 @@
 
 
 
-@if (@User.Identity.IsAuthenticated)
+@if (@User.Identity.IsAuthenticated && User.IsInRole("Freelancer"))
 {
     <span>@User.Identity.Name -  </span>
 
-    <a asp-action="Logout" asp-controller="Account" class="btn btn-danger">
-        Logout
-    </a>
+    @*<form class="m-1 p-1" asp-action="IndexForFreelancer" asp-controller="Home" method="post">
+
+        <div class="text-danger" asp-validation-summary="All"></div>
+
+        <div class="form-group">
+            <label asp-for="CompanyName"></label>
+            <input asp-for="Name" class="form-control" />
+
+            <label asp-for="Skills"></label>
+            <input asp-for="Skills" class="form-control" />
+
+            <label asp-for="WorkHoursPerWeek"></label>
+            <input type="number" asp-for="WorkHoursPerWeek" class="form-control" />
+
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Submit" />
+        <a asp-action="Index" class="btn btn-danger">Cancel</a>
+
+
+    </form>*@
 
     <a asp-action="Logout" asp-controller="Account" class="btn btn-danger">
         Logout
     </a>
+
+
 }
-else
+@if (@User.Identity.IsAuthenticated && User.IsInRole("Client"))
+{
+
+    <span>@User.Identity.Name -  </span>
+
+    @*<form class="m-1 p-1" asp-action="IndexForClient" asp-controller="Home" method="post">
+
+        <div class="text-danger" asp-validation-summary="All"></div>
+
+        <div class="form-group">
+            <label asp-for="CompanyName"></label>
+            <input asp-for="Name" class="form-control" />
+             
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Submit" />
+        <a asp-action="Index" class="btn btn-danger">Cancel</a>
+
+
+    </form>*@
+    <a asp-action="Logout" asp-controller="Account" class="btn btn-danger">
+        Logout
+    </a>
+
+}
+@if (!@User.Identity.IsAuthenticated)
 {
     <a asp-action="Login" asp-controller="Account" class="btn btn-primary">
         Login

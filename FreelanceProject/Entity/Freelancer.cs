@@ -16,7 +16,7 @@ namespace FreelanceProject.Models
         public string Address { get; set; }
         
         [Required]
-        public List<string> Skills { get; set; }
+        public string Skills { get; set; }
         
         [Required]
         public short WorkHoursPerWeek { get; set; }
