@@ -11,6 +11,7 @@ namespace FreelanceProject.Repository.Abstract
         IFreelancerRepository Freelancers { get; }
         IJobRepository Jobs { get; }
 
+        IJobClientRepository JobClient { get; }
 
         int SaveChanges();
     }

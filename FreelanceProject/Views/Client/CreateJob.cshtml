@@ -1,4 +1,4 @@
-﻿@model JobClientModel
+﻿@model JobClient
 @using FreelanceProject.Services
 
 @{
@@ -17,11 +17,16 @@
 
         <p>Create a Job</p>
 
+        <input asp-for="@Model.Client.UserName" value="@User.Identity.Name" hidden />
+
         <label asp-for="@Model.Client.Email"></label>
         <input asp-for="@Model.Client.Email" class="form-control" />
 
         <label asp-for="@Model.Client.PhoneNumber"></label>
         <input asp-for="@Model.Client.PhoneNumber" class="form-control" />
+
+        <label asp-for="@Model.Job.Title"></label>
+        <input asp-for="@Model.Job.Title" class="form-control" />
 
         <label asp-for="@Model.Job.JobCategory.CategoryName"></label>
         <select class="form-control" asp-for="@Model.Job.JobCategory.CategoryName">
@@ -78,7 +83,7 @@
         <label asp-for="@Model.Client.CompanyName"></label>
         <input asp-for="@Model.Client.CompanyName" class="form-control" />
 
-       
+
     </div>
 
     <input type="submit" class="btn btn-primary" value="Submit" />

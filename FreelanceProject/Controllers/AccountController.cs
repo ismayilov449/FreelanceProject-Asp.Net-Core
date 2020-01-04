@@ -102,7 +102,7 @@ namespace FreelanceProject.Controllers
                 var user = new User()
                 {
 
-
+                    Name = model.Name,
                     UserName = tempusername.ToLower(),
                     Email = model.Email,
                     Surname = model.Surname

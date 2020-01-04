@@ -13,7 +13,7 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         public EfUnitOfWork(ProjectContext _projectContext)
         {
-            projectContext = _projectContext;
+            projectContext = _projectContext ?? throw new ArgumentNullException("dbcontext can not be null");
         }
 
 

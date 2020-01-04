@@ -27,8 +27,11 @@ namespace FreelanceProject
             services.AddDbContext<ProjectContext>(options =>
         options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=FreelanceProjectDb;Trusted_Connection=True;MultipleActiveResultSets=true"));
 
-
-           
+            services.AddTransient<IJobRepository, EfJobRepository>();
+            services.AddTransient<IClientRepository, EfClientRepository>();
+            services.AddTransient<IFreelancerRepository, EfFreelancerRepository>();
+            services.AddTransient<IJobClientRepository, EfJobClientRepository>();
+            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
 
             services.AddIdentity<User, IdentityRole>(options =>
             {
@@ -46,10 +49,7 @@ namespace FreelanceProject
                            .AddEntityFrameworkStores<UserIdentityDbContext>()
                            .AddDefaultTokenProviders();
 
-            services.AddTransient<IJobRepository, EfJobRepository>();
-            services.AddTransient<IClientRepository, EfClientRepository>();
-            services.AddTransient<IFreelancerRepository, EfFreelancerRepository>();
-            services.AddTransient<IUnitOfWork, EfUnitOfWork>();
+           
 
             services.AddMvc();
 
