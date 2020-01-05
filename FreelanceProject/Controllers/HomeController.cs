@@ -15,7 +15,7 @@ namespace FreelanceProject.Controllers
         {
             if (User.IsInRole("Freelancer"))
             {
-                return RedirectToAction("IndexForFreelancer");
+                return RedirectToAction("Index","Freelancer");
             }
             else
             {

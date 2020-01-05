@@ -7,19 +7,12 @@ using System.Threading.Tasks;
 
 namespace FreelanceProject.Models
 {
-    public class JobClient
+    public class JobClientModel
     {
 
-      
-        public int ClientId { get; set; }
+        public int Id { get; set; }
         public Client Client { get; set; }
-
-
-     
-        public int JobId { get; set; }
         public Job Job { get; set; }
-
-      
 
     }
 }

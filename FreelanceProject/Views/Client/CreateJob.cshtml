@@ -1,4 +1,4 @@
-﻿@model JobClient
+﻿@model JobClientModel
 @using FreelanceProject.Services
 
 @{
@@ -65,8 +65,8 @@
             }
         </select>
 
-        <label asp-for="@Model.Job.Practise"></label>
-        <select class="form-control" asp-for="@Model.Job.Practise">
+        <label asp-for="@Model.Job.Experience"></label>
+        <select class="form-control" asp-for="@Model.Job.Experience">
             <option disabled selected>Choose..</option>
             @foreach (var item in @FakeRepo.GetPractise())
             {

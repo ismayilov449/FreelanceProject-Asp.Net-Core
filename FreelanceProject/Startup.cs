@@ -30,7 +30,6 @@ namespace FreelanceProject
             services.AddTransient<IJobRepository, EfJobRepository>();
             services.AddTransient<IClientRepository, EfClientRepository>();
             services.AddTransient<IFreelancerRepository, EfFreelancerRepository>();
-            services.AddTransient<IJobClientRepository, EfJobClientRepository>();
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
 
             services.AddIdentity<User, IdentityRole>(options =>

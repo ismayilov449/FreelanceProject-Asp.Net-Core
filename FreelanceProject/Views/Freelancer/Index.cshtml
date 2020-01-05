@@ -1,0 +1,11 @@
+﻿@model Jobs
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var item in Model.Jobss)
+{
+    @Html.Partial("_JobItem", item)
+}
+

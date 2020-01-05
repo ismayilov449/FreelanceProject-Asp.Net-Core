@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FreelanceProject.Repository.Abstract
 {
-    public interface IJobClientRepository : IGenericRepository<JobClient>
+    public interface IUserRepository : IGenericRepository<User>
     {
+
     }
 }

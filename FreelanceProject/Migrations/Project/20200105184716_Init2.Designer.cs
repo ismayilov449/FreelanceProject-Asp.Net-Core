@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200104120350_ProjectModifyModels")]
-    partial class ProjectModifyModels
+    [Migration("20200105184716_Init2")]
+    partial class Init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,23 @@ namespace FreelanceProject.Migrations.Project
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FreelanceProject.Entity.JobFreelancer", b =>
+                {
+                    b.Property<int>("FreelancerId");
+
+                    b.Property<int>("JobId");
+
+                    b.Property<string>("FreelancerId1");
+
+                    b.HasKey("FreelancerId", "JobId");
+
+                    b.HasIndex("FreelancerId1");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("JobFreelancer");
+                });
 
             modelBuilder.Entity("FreelanceProject.Models.Client", b =>
                 {
@@ -128,18 +145,20 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<string>("City")
                         .IsRequired();
 
+                    b.Property<int?>("ClientId");
+
                     b.Property<string>("Description")
                         .IsRequired();
 
                     b.Property<string>("Education")
                         .IsRequired();
 
+                    b.Property<string>("Experience")
+                        .IsRequired();
+
                     b.Property<int>("JobCategoryId");
 
                     b.Property<string>("Position")
-                        .IsRequired();
-
-                    b.Property<string>("Practise")
                         .IsRequired();
 
                     b.Property<string>("Price")
@@ -151,7 +170,11 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<Guid>("Token");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("JobCategoryId");
 
@@ -169,19 +192,6 @@ namespace FreelanceProject.Migrations.Project
                     b.HasKey("Id");
 
                     b.ToTable("JobCategory");
-                });
-
-            modelBuilder.Entity("FreelanceProject.Models.JobClient", b =>
-                {
-                    b.Property<int>("JobId");
-
-                    b.Property<int>("ClientId");
-
-                    b.HasKey("JobId", "ClientId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("JobClient");
                 });
 
             modelBuilder.Entity("FreelanceProject.Models.User", b =>
@@ -229,7 +239,19 @@ namespace FreelanceProject.Migrations.Project
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FreelanceProject.Entity.JobFreelancer", b =>
+                {
+                    b.HasOne("FreelanceProject.Models.Freelancer", "Freelancer")
+                        .WithMany()
+                        .HasForeignKey("FreelancerId1");
+
+                    b.HasOne("FreelanceProject.Models.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FreelanceProject.Models.Client", b =>
@@ -248,22 +270,13 @@ namespace FreelanceProject.Migrations.Project
 
             modelBuilder.Entity("FreelanceProject.Models.Job", b =>
                 {
+                    b.HasOne("FreelanceProject.Models.Client", "Client")
+                        .WithMany("Jobs")
+                        .HasForeignKey("ClientId");
+
                     b.HasOne("FreelanceProject.Models.JobCategory", "JobCategory")
                         .WithMany()
                         .HasForeignKey("JobCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FreelanceProject.Models.JobClient", b =>
-                {
-                    b.HasOne("FreelanceProject.Models.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("FreelanceProject.Models.Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

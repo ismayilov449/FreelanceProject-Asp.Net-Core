@@ -59,7 +59,7 @@ namespace FreelanceProject.Controllers
 
                         if (roleresult.FirstOrDefault().ToString() == "Freelancer")
                         {
-                            return RedirectToAction("IndexForFreelancer", "Home");
+                            return RedirectToAction("Index", "Freelancer");
                         }
                         else
                         {

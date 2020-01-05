@@ -16,7 +16,6 @@ namespace FreelanceProject.Controllers
     {
         // private EfUnitOfWork uow;
         private UserManager<User> userManager;
-        private JobClient currentjob;
         private IUnitOfWork uow;
 
         public ClientController(UserManager<User> _userManager, IUnitOfWork _uow)
@@ -38,37 +37,49 @@ namespace FreelanceProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJob(JobClient jobClientModel)
+        public async Task<IActionResult> CreateJob(JobClientModel jobClientModel)
         {
             var currentuser = await userManager.FindByNameAsync(jobClientModel.Client.UserName);
 
-            if (currentuser != null)
+            
+
+
+
+            var job = new Job()
             {
-                jobClientModel.Client.User = currentuser;
-            }
-            currentjob = new JobClient()
-            {
-
-                Client = jobClientModel.Client,
-
-
-                Job = jobClientModel.Job,
+                Age = jobClientModel.Job.Age,
+                City = jobClientModel.Job.City,
+                Description = jobClientModel.Job.Description,
+                Education = jobClientModel.Job.Education,
+                Experience = jobClientModel.Job.Experience,
+                JobCategory = jobClientModel.Job.JobCategory,
+                Position = jobClientModel.Job.Position,
+                Price = jobClientModel.Job.Price,
+                RequiredSkills = jobClientModel.Job.RequiredSkills,
+                Title = jobClientModel.Job.Title,
+                Token = Guid.NewGuid()
 
             };
 
-            if(!uow.Clients.Find(i=> i.Id != jobClientModel.Client.Id).Any())
+            job.Client = jobClientModel.Client;
+            job.Client.CompanyName = jobClientModel.Client.CompanyName;
+
+            int cnt = uow.Users.Find(i => i.Id == currentuser.Id).Count();
+
+            if (cnt == 0)
             {
-                uow.Clients.Add(currentjob.Client);
+                jobClientModel.Client.User = currentuser;
+                uow.Users.Add(currentuser);
             }
 
-            
-            uow.Jobs.Add(currentjob.Job);
-          
+
+            uow.Jobs.Add(job);
+
             uow.SaveChanges();
 
-                return RedirectToAction("SuccessfullyAdded");
-            
-             
+            return RedirectToAction("SuccessfullyAdded");
+
+
         }
 
 
@@ -76,13 +87,13 @@ namespace FreelanceProject.Controllers
         public IActionResult SuccessfullyAdded()
         {
 
-           
+
             return View();
 
-            
+
         }
 
-       
+
 
     }
 }

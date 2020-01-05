@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FreelanceProject.Migrations.Project
 {
-    public partial class ProjectInit : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,34 +48,6 @@ namespace FreelanceProject.Migrations.Project
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Jobs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    RequiredSkills = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    Price = table.Column<string>(nullable: false),
-                    Education = table.Column<string>(nullable: false),
-                    Practise = table.Column<string>(nullable: false),
-                    Age = table.Column<string>(nullable: false),
-                    JobCategoryId = table.Column<int>(nullable: false),
-                    Position = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jobs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jobs_JobCategory_JobCategoryId",
-                        column: x => x.JobCategoryId,
-                        principalTable: "JobCategory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,25 +120,37 @@ namespace FreelanceProject.Migrations.Project
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobClient",
+                name: "Jobs",
                 columns: table => new
                 {
-                    ClientId = table.Column<int>(nullable: false),
-                    JobId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClientId = table.Column<int>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    RequiredSkills = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: false),
+                    Price = table.Column<string>(nullable: false),
+                    Education = table.Column<string>(nullable: false),
+                    Experience = table.Column<string>(nullable: false),
+                    Age = table.Column<string>(nullable: false),
+                    JobCategoryId = table.Column<int>(nullable: false),
+                    Position = table.Column<string>(nullable: false),
+                    Token = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobClient", x => new { x.JobId, x.ClientId });
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobClient_Clients_ClientId",
+                        name: "FK_Jobs_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_JobClient_Jobs_JobId",
-                        column: x => x.JobId,
-                        principalTable: "Jobs",
+                        name: "FK_Jobs_JobCategory_JobCategoryId",
+                        column: x => x.JobCategoryId,
+                        principalTable: "JobCategory",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -182,8 +166,8 @@ namespace FreelanceProject.Migrations.Project
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobClient_ClientId",
-                table: "JobClient",
+                name: "IX_Jobs_ClientId",
+                table: "Jobs",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
@@ -198,19 +182,16 @@ namespace FreelanceProject.Migrations.Project
                 name: "Freelancers");
 
             migrationBuilder.DropTable(
-                name: "JobClient");
+                name: "Jobs");
 
             migrationBuilder.DropTable(
                 name: "Clients");
 
             migrationBuilder.DropTable(
-                name: "Jobs");
+                name: "JobCategory");
 
             migrationBuilder.DropTable(
                 name: "User");
-
-            migrationBuilder.DropTable(
-                name: "JobCategory");
         }
     }
 }

@@ -23,6 +23,16 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         private IJobRepository _jobs;
 
+        private IUserRepository _users;
+
+        public IUserRepository Users
+        {
+            get
+            {
+                return _users ?? (_users = new EfUserRepository(projectContext));
+            }
+        }
+
         public IClientRepository Clients
         {
             get
@@ -47,6 +57,7 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
             }
         }
 
+        
         public int SaveChanges()
         {
             try
@@ -64,6 +75,7 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
         public void Dispose()
         {
             projectContext.Dispose();
+        
         }
     }
 }

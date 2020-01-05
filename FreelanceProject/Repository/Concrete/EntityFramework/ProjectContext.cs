@@ -1,4 +1,5 @@
-﻿using FreelanceProject.Models;
+﻿using FreelanceProject.Entity;
+using FreelanceProject.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,12 +24,14 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         public DbSet<Job> Jobs { get; set; }
 
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<JobClient>()
-                .HasKey(pk => new { pk.JobId, pk.ClientId });
+            modelBuilder.Entity<JobFreelancer>()
+                .HasKey(pk => new { pk.FreelancerId, pk.JobId });
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }

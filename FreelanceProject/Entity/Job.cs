@@ -9,8 +9,9 @@ namespace FreelanceProject.Models
     public class Job
     {
 
-     
         public int Id { get; set; }
+
+        public Client Client { get; set; }
 
         [Required]
         public string Title { get; set; }
@@ -31,7 +32,7 @@ namespace FreelanceProject.Models
         public string Education { get; set; }
 
         [Required]
-        public string Practise { get; set; }
+        public string Experience { get; set; }
 
         [Required]
         public string Age { get; set; }
@@ -42,5 +43,6 @@ namespace FreelanceProject.Models
         [Required]
         public string Position { get; set; }
 
+        public Guid Token { get; set; }
     }
 }

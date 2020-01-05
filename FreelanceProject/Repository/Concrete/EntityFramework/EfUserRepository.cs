@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace FreelanceProject.Repository.Concrete.EntityFramework
 {
-    public class EfJobClientRepository : EfGenericRepository<JobClient>, IJobClientRepository
+    public class EfUserRepository : EfGenericRepository<User>, IUserRepository
     {
-        public EfJobClientRepository(ProjectContext context) : base(context)
+
+
+        public EfUserRepository(ProjectContext context) : base(context) 
         {
 
         }
 
         public ProjectContext ProjectContext { get { return context as ProjectContext; } }
+
     }
 }
