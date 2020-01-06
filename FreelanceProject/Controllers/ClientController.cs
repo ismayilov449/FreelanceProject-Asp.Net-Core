@@ -43,8 +43,6 @@ namespace FreelanceProject.Controllers
 
             
 
-
-
             var job = new Job()
             {
                 Age = jobClientModel.Job.Age,
@@ -62,13 +60,14 @@ namespace FreelanceProject.Controllers
             };
 
             job.Client = jobClientModel.Client;
+            job.Client.Id = jobClientModel.Client.Id;
             job.Client.CompanyName = jobClientModel.Client.CompanyName;
+            //jobClientModel.Client.User.UserName = currentuser.UserName;
 
             int cnt = uow.Users.Find(i => i.Id == currentuser.Id).Count();
 
             if (cnt == 0)
             {
-                jobClientModel.Client.User = currentuser;
                 uow.Users.Add(currentuser);
             }
 

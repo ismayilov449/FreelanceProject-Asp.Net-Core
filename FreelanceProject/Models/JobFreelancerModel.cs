@@ -7,5 +7,8 @@ namespace FreelanceProject.Models
 {
     public class JobFreelancerModel
     {
+        public int JobId { get; set; }
+
+        public Freelancer CurrentFreelancer { get; set; }
     }
 }

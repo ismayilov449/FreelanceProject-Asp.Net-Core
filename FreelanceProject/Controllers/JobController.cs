@@ -72,23 +72,23 @@ namespace FreelanceProject.Controllers
         [Authorize(Roles="Freelancer")]
         public IActionResult SendRequest(int Id)
         {
-            jobs = uow.Jobs.Find(i => i.Id == Id);
+            //jobs = uow.Jobs.Find(i => i.Id == Id);
 
 
-            jobs = jobs
-                    .Include(i => i.Client)
-                    .Include(i => i.JobCategory);
+            //jobs = jobs
+            //        .Include(i => i.Client)
+            //        .Include(i => i.JobCategory);
 
-            var temp = new Job();
-            temp = jobs.FirstOrDefault();
-            temp.Client = jobs.FirstOrDefault().Client;
+            //var temp = new Job();
+            //temp = jobs.FirstOrDefault();
+            //temp.Client = jobs.FirstOrDefault().Client;
 
-            return View(temp);
+            return View();
         }
 
         [HttpPost]
         [Authorize(Roles = "Freelancer")]
-        public IActionResult SendRequest(Job job)
+        public IActionResult SendRequest(JobFreelancerModel jobFreelancerModel)
         {
             var temp = new JobFreelancer();
 

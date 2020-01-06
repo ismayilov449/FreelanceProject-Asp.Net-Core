@@ -1,4 +1,4 @@
-﻿@model Job
+﻿@model JobFreelancerModel
 
 @{
     ViewData["Title"] = "SendRequest";
@@ -17,34 +17,43 @@
 
     <div class="form-group">
 
+        <label asp-for="@Model.CurrentFreelancer.User.Name"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Name">
+
+        <label asp-for="@Model.CurrentFreelancer.User.Surname"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Surname">
+
+        <label asp-for="@Model.CurrentFreelancer.User.Age"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Age">
+
+        <label asp-for="@Model.CurrentFreelancer.User.Email"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Email">
+
+        <label asp-for="@Model.CurrentFreelancer.Address"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.Address">
+
+        <label asp-for="@Model.CurrentFreelancer.User.Description"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Description">
 
 
-        <label asp-for="Age"></label>
-        <input type="text" class="form-control" asp-for="Age"> 
 
-        <label asp-for="City"></label>
-        <input type="text" class="form-control" asp-for="City"> 
+        <label asp-for="@Model.CurrentFreelancer.Skills"></label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.Skills">
 
-        <label asp-for="Description"></label>
-        <input type="text" class="form-control" asp-for="Description"> 
+        <label asp-for="@Model.CurrentFreelancer.User.Image">Upload image</label>
+        <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Age">
 
-        <label asp-for="Education"></label>
-        <input type="text" class="form-control" asp-for="Education">  
-
-        <label asp-for="Experience"></label>
-        <input type="text" class="form-control" asp-for="Experience">  
-
-        <label asp-for="JobCategory.CategoryName"></label>
-        <input type="text" class="form-control" asp-for="JobCategory.CategoryName">  
+        @*<label asp-for="JobCategory.CategoryName"></label>
+        <input type="text" class="form-control" asp-for="JobCategory.CategoryName">
 
         <label asp-for="Position"></label>
-        <input type="text" class="form-control" asp-for="Position">  
+        <input type="text" class="form-control" asp-for="Position">
 
         <label asp-for="Price"></label>
-        <input type="text" class="form-control" asp-for="Price">  
+        <input type="text" class="form-control" asp-for="Price">
 
         <label asp-for="RequiredSkills"></label>
-        <input type="text" class="form-control" asp-for="RequiredSkills">  
+        <input type="text" class="form-control" asp-for="RequiredSkills">*@
 
 
     </div>
