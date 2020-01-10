@@ -4,8 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
+<a asp-action="JobsForStatus">My Requests</a>
+
 @foreach (var item in Model.Jobss)
 {
     @Html.Partial("_JobItem", item)
 }
+
+
 

@@ -1,0 +1,41 @@
+﻿@model List<JobFreelancer>
+
+
+@{
+    ViewData["Title"] = "JobsForStatus";
+}
+
+<h1>JobsForStatus</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Job</th>
+            <th scope="col">Date applied</th>
+            <th scope="col">Company name</th>
+            <th scope="col">Candidate status</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jobFreelancer in Model)
+        {
+            
+        <tr>
+            <th scope="row">1</th>
+            <td>@jobFreelancer.Job.Title</td>
+            <td>@jobFreelancer.DateOfRequest.ToShortDateString()</td>
+            <td>@jobFreelancer.Job.Client.CompanyName</td>
+            <td>@jobFreelancer.Status</td>
+
+        </tr>
+        }
+    </tbody>
+
+      
+       
+
+</table>
+
+ 

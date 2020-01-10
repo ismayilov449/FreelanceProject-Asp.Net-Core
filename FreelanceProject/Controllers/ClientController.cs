@@ -41,7 +41,7 @@ namespace FreelanceProject.Controllers
         {
             var currentuser = await userManager.FindByNameAsync(jobClientModel.Client.UserName);
 
-            
+
 
             var job = new Job()
             {
@@ -55,7 +55,10 @@ namespace FreelanceProject.Controllers
                 Price = jobClientModel.Job.Price,
                 RequiredSkills = jobClientModel.Job.RequiredSkills,
                 Title = jobClientModel.Job.Title,
-                Token = Guid.NewGuid()
+                Token = Guid.NewGuid(),
+                SharedTime = DateTime.Now,
+                Deadline = jobClientModel.Job.Deadline
+
 
             };
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FreelanceProject.Models;
 using FreelanceProject.Repository.Abstract;
+using FreelanceProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,5 +54,18 @@ namespace FreelanceProject.Controllers
 
             }); ;
         }
+
+
+        public IActionResult JobsForStatus(string status = "Waiting")
+        {
+            var tempjobstatusmodel = new JobStatusModel();
+            var jobs = uow.JobsFreelancers.Find(i => i.Status == status && i.Freelancer.Id == HttpContext.Session.GetJson<string>("CurrentUserId"))
+                .Include(i=> i.Job)
+                .ThenInclude(i=> i.Client)
+                .Include(i=> i.Freelancer).ToList();
+          
+            return View(jobs);
+        }
+
     }
 }

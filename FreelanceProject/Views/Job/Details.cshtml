@@ -24,6 +24,9 @@
     <label asp-for="@Model.Jobss.FirstOrDefault().Education"></label>
     <p asp-for="@Model.Jobss.FirstOrDefault().Education">@Model.Jobss.FirstOrDefault().Education</p>
 
+    <label asp-for="@Model.Jobss.FirstOrDefault().Deadline"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Deadline">@Model.Jobss.FirstOrDefault().Deadline.ToShortDateString()</p>
+
     <label asp-for="@Model.Jobss.FirstOrDefault().Experience"></label>
     <p asp-for="@Model.Jobss.FirstOrDefault().Experience">@Model.Jobss.FirstOrDefault().Experience</p>
 
@@ -38,6 +41,9 @@
 
     <label asp-for="@Model.Jobss.FirstOrDefault().RequiredSkills"></label>
     <p asp-for="@Model.Jobss.FirstOrDefault().RequiredSkills">@Model.Jobss.FirstOrDefault().RequiredSkills</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().SharedTime"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().SharedTime">@Model.Jobss.FirstOrDefault().SharedTime.ToShortDateString()</p>
 
 
 </div>

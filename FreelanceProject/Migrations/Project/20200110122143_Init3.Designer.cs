@@ -4,14 +4,16 @@ using FreelanceProject.Repository.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20200110122143_Init3")]
+    partial class Init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +27,7 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<int>("JobId");
 
-                    b.Property<DateTime>("DateOfRequest");
-
                     b.Property<string>("FreelancerId1");
-
-                    b.Property<string>("Status");
 
                     b.HasKey("FreelancerId", "JobId");
 
@@ -149,8 +147,6 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<int?>("ClientId");
 
-                    b.Property<DateTime>("Deadline");
-
                     b.Property<string>("Description")
                         .IsRequired();
 
@@ -170,8 +166,6 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<string>("RequiredSkills")
                         .IsRequired();
-
-                    b.Property<DateTime>("SharedTime");
 
                     b.Property<string>("Title")
                         .IsRequired();

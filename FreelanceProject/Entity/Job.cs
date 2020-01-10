@@ -43,6 +43,11 @@ namespace FreelanceProject.Models
         [Required]
         public string Position { get; set; }
 
+        public DateTime SharedTime { get; set; }
+
+        [Required]
+        public DateTime Deadline { get; set; }
+
         public Guid Token { get; set; }
     }
 }

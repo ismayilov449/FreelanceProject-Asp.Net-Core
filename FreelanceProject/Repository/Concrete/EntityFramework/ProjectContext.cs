@@ -29,9 +29,22 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<JobFreelancer>()
+
                 .HasKey(pk => new { pk.FreelancerId, pk.JobId });
+
+            modelBuilder.Entity<JobFreelancer>()
+
+               .Property(pk => pk.Status );
+
+
+            modelBuilder.Entity<JobFreelancer>()
+
+               .Property(pk => pk.DateOfRequest);
+
             base.OnModelCreating(modelBuilder);
         }
+
+        public DbSet<JobFreelancer> JobsFreelancers { get; set; }
 
     }
 }

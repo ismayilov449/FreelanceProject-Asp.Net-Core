@@ -10,10 +10,11 @@ namespace FreelanceProject.Repository.Abstract
         IClientRepository Clients { get; }
         IFreelancerRepository Freelancers { get; }
         IJobRepository Jobs { get; }
-
         IUserRepository Users { get; }
 
-        
+        IJobFreelancerRepository JobsFreelancers { get; }
+
+
         int SaveChanges();
     }
 }

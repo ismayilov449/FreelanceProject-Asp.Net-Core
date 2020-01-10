@@ -6,6 +6,7 @@ using FreelanceProject.Entity;
 using FreelanceProject.Models;
 using FreelanceProject.Repository.Abstract;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,10 +18,12 @@ namespace FreelanceProject.Controllers
 
         private IUnitOfWork uow;
         private IQueryable<Job> jobs;
+        private UserManager<User> userManager;
         private static int currentJobId;
-        public JobController(IUnitOfWork _uow)
+        public JobController(IUnitOfWork _uow, UserManager<User> _userManager)
         {
             uow = _uow;
+            userManager = _userManager;
         }
 
         public IActionResult Index()
@@ -70,7 +73,7 @@ namespace FreelanceProject.Controllers
 
 
         [Authorize(Roles="Freelancer")]
-        public IActionResult SendRequest(int Id)
+        public async Task<IActionResult> SendRequest(int Id)
         {
             //jobs = uow.Jobs.Find(i => i.Id == Id);
 
@@ -83,7 +86,22 @@ namespace FreelanceProject.Controllers
             //temp = jobs.FirstOrDefault();
             //temp.Client = jobs.FirstOrDefault().Client;
 
-            return View();
+            var temp = new JobFreelancerModel();
+            temp.CurrentFreelancer = new Freelancer();
+            temp.CurrentFreelancer.User = new User();
+            /*temp.CurrentFreelancer = */
+            var curuser = await userManager.FindByNameAsync(User.Identity.Name);
+
+            temp.CurrentFreelancer.Id = curuser.Id;
+            temp.CurrentFreelancer.User.Name = curuser.Name;
+            temp.CurrentFreelancer.User.Surname = curuser.Surname;
+            temp.CurrentFreelancer.User.Email = curuser.Email;
+            temp.CurrentFreelancer.User.Age = curuser.Age;
+
+            temp.JobId = Id;
+
+
+            return View(temp);
         }
 
         [HttpPost]
@@ -92,9 +110,33 @@ namespace FreelanceProject.Controllers
         {
             var temp = new JobFreelancer();
 
-           // temp.Freelancer = uow.Users.Find(i => i.Id == job.Client.Id);
+            temp.Freelancer = jobFreelancerModel.CurrentFreelancer;
+            temp.Freelancer.Id= jobFreelancerModel.CurrentFreelancer.Id;
+            temp.Freelancer.UserName = jobFreelancerModel.CurrentFreelancer.UserName;
+            temp.Freelancer.User.Age = jobFreelancerModel.CurrentFreelancer.User.Age;
+            temp.Freelancer.User.Name = jobFreelancerModel.CurrentFreelancer.User.Name;
+            temp.Freelancer.User.Email = jobFreelancerModel.CurrentFreelancer.User.Email;
+            temp.Freelancer.User.Image = jobFreelancerModel.CurrentFreelancer.User.Image;
+            temp.Freelancer.User.UserName = jobFreelancerModel.CurrentFreelancer.UserName;
+            temp.Freelancer.User.Surname = jobFreelancerModel.CurrentFreelancer.User.Surname;
+            temp.DateOfRequest = DateTime.Now;
 
-             
+
+            temp.Job = uow.Jobs.Find(i => i.Id == jobFreelancerModel.JobId).First();
+
+            if(uow.Freelancers.Find(i=> i.Id == jobFreelancerModel.CurrentFreelancer.Id).Count() == 0)
+            {
+                uow.Freelancers.Add(temp.Freelancer);
+            }
+            
+
+            temp.Status = "Waiting";
+
+           
+            uow.JobsFreelancers.Add(temp);
+            uow.SaveChanges();
+
+
             return View();
         }
     }

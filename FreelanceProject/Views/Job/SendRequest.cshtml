@@ -9,13 +9,18 @@
     <h2>Job.Title</h2>
 </div>
 
-@Model = new JobClientModel(); 
+
 
 <form class="m-1 p-1" asp-action="SendRequest" method="post">
 
     <div class="text-danger" asp-validation-summary="All"></div>
 
     <div class="form-group">
+
+        <input type="hidden" asp-for="@Model.JobId" />
+
+        <input type="hidden" asp-for="@Model.CurrentFreelancer.Id" />
+
 
         <label asp-for="@Model.CurrentFreelancer.User.Name"></label>
         <input type="text" class="form-control" asp-for="@Model.CurrentFreelancer.User.Name">

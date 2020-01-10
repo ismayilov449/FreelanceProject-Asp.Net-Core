@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FreelanceProject.Models;
+using FreelanceProject.Repository.Abstract;
+using FreelanceProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +16,19 @@ namespace FreelanceProject.Controllers
     {
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
+        private IUnitOfWork uow;
 
         private RoleManager<IdentityRole> roleManager;
 
 
-        public AccountController(RoleManager<IdentityRole> _roleManager, UserManager<User> _userManager, SignInManager<User> _signInManager )
+        public AccountController(RoleManager<IdentityRole> _roleManager, UserManager<User> _userManager, SignInManager<User> _signInManager , IUnitOfWork _uow)
         {
             roleManager = _roleManager;
 
             userManager = _userManager;
             signInManager = _signInManager;
+
+            uow = _uow;
  
         }
 
@@ -55,7 +60,7 @@ namespace FreelanceProject.Controllers
                     {
                         var roleresult = await userManager.GetRolesAsync(user);
 
-                     
+                        HttpContext.Session.SetJson("CurrentUserId", user.Id);
 
                         if (roleresult.FirstOrDefault().ToString() == "Freelancer")
                         {
@@ -118,6 +123,9 @@ namespace FreelanceProject.Controllers
                     var roleresult = await userManager.AddToRoleAsync(currentUser, model.Role.ToString());
 
                     await signInManager.SignInAsync(user, isPersistent: false);
+
+                    uow.Users.Add(currentUser);
+                    uow.SaveChanges();
                     return RedirectToAction("Login", "Account");
                 }
                 else

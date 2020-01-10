@@ -25,6 +25,17 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         private IUserRepository _users;
 
+        private IJobFreelancerRepository _jobsFreelancers;
+
+
+        public IJobFreelancerRepository JobsFreelancers
+        {
+            get
+            {
+                return _jobsFreelancers ?? (_jobsFreelancers = new EfJobFreelancerRepository(projectContext));
+            }
+        }
+
         public IUserRepository Users
         {
             get

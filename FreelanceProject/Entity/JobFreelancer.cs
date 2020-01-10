@@ -15,5 +15,9 @@ namespace FreelanceProject.Entity
 
         public int FreelancerId { get; set; }
         public Freelancer Freelancer { get; set; }
+
+        public string Status { get; set; }
+
+        public DateTime DateOfRequest { get; set; }
     }
 }

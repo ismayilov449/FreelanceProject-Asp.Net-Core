@@ -35,7 +35,7 @@ namespace FreelanceProject
             services.AddIdentity<User, IdentityRole>(options =>
             {
 
-                //options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = true;
                 options.Password.RequiredLength = 7;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
@@ -52,6 +52,9 @@ namespace FreelanceProject
 
             services.AddMvc();
 
+            services.AddMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +66,7 @@ namespace FreelanceProject
             }
 
             app.UseStaticFiles();
+            app.UseSession();
             app.UseStatusCodePages();
             app.UseAuthentication();
 
