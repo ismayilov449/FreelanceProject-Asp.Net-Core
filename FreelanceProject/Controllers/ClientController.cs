@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FreelanceProject.Models;
 using FreelanceProject.Repository.Abstract;
 using FreelanceProject.Repository.Concrete.EntityFramework;
+using FreelanceProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +66,7 @@ namespace FreelanceProject.Controllers
 
             job.Client = jobClientModel.Client;
             job.Client.Id = jobClientModel.Client.Id;
+            job.Client.StringId = currentuser.Id;
             job.Client.CompanyName = jobClientModel.Client.CompanyName;
             //jobClientModel.Client.User.UserName = currentuser.UserName;
 
@@ -83,9 +86,7 @@ namespace FreelanceProject.Controllers
 
 
         }
-
-
-
+         
         public IActionResult SuccessfullyAdded()
         {
 
@@ -95,6 +96,29 @@ namespace FreelanceProject.Controllers
 
         }
 
+        public IActionResult LookJobs()
+        {
+
+            string currentuserid = HttpContext.Session.GetJson<string>("CurrentUserId");
+
+            if (String.IsNullOrWhiteSpace(currentuserid))
+            {
+                using (StreamReader streamReader = new StreamReader("UserId.txt"))
+                {
+                    currentuserid = streamReader.ReadToEnd();
+                }
+            }
+
+            var currentclients = uow.Clients.Find(i => i.StringId == currentuserid).ToList();
+
+            var currentjobs = new List<Job>();
+            foreach (var item in currentclients)
+            {
+                currentjobs.Add(uow.Jobs.Find(i => i.Client.Id == item.Id).First());
+            }
+
+            return View(currentjobs);
+        }
 
 
     }

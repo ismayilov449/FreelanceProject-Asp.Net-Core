@@ -1,0 +1,12 @@
+﻿@model List<Job>
+
+@{
+    ViewData["Title"] = "LookJobs";
+}
+
+<h1>LookJobs</h1>
+
+@foreach (var item in @Model)
+{
+    @Html.Partial("_JobItem", item)
+}

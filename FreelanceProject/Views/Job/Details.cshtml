@@ -47,7 +47,17 @@
 
 
 </div>
-<a asp-action="SendRequest" asp-route-Id="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Prepare </a>
-@*asp-route-jobId="@Model.Jobss.FirstOrDefault().Id"*@
-<a asp-action="Index" class="btn btn-danger">Cancel</a>
+
+@if (@User.Identity.IsAuthenticated && User.IsInRole("Freelancer"))
+{
+    <a asp-action="SendRequest" asp-route-Id="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Prepare </a>
+    <a asp-action="Index" asp-controller="Freelancer" class="btn btn-danger">Cancel</a>
+}
+
+@if (@User.Identity.IsAuthenticated && User.IsInRole("Client"))
+{
+    <a asp-action="LookJobs" asp-controller="Client" class="btn btn-danger">Cancel</a>
+}
+
+
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FreelanceProject.Models;
@@ -21,7 +22,7 @@ namespace FreelanceProject.Controllers
         private RoleManager<IdentityRole> roleManager;
 
 
-        public AccountController(RoleManager<IdentityRole> _roleManager, UserManager<User> _userManager, SignInManager<User> _signInManager , IUnitOfWork _uow)
+        public AccountController(RoleManager<IdentityRole> _roleManager, UserManager<User> _userManager, SignInManager<User> _signInManager, IUnitOfWork _uow)
         {
             roleManager = _roleManager;
 
@@ -29,7 +30,7 @@ namespace FreelanceProject.Controllers
             signInManager = _signInManager;
 
             uow = _uow;
- 
+
         }
 
 
@@ -61,6 +62,12 @@ namespace FreelanceProject.Controllers
                         var roleresult = await userManager.GetRolesAsync(user);
 
                         HttpContext.Session.SetJson("CurrentUserId", user.Id);
+                        using (StreamWriter streamWriter = new StreamWriter("UserId.txt"))
+                        {
+                            streamWriter.Write(HttpContext.Session.GetJson<string>("CurrentUserId"));
+                        }
+
+ 
 
                         if (roleresult.FirstOrDefault().ToString() == "Freelancer")
                         {
@@ -68,9 +75,9 @@ namespace FreelanceProject.Controllers
                         }
                         else
                         {
+                          
                             return RedirectToAction("IndexForClient", "Home");
                         }
-
 
                     }
 
@@ -111,6 +118,7 @@ namespace FreelanceProject.Controllers
                     UserName = tempusername.ToLower(),
                     Email = model.Email,
                     Surname = model.Surname
+                   
 
                 };
 
@@ -120,11 +128,14 @@ namespace FreelanceProject.Controllers
                     var currentUser = await userManager.FindByNameAsync(user.UserName);
 
 
-                    var roleresult = await userManager.AddToRoleAsync(currentUser, model.Role.ToString());
+                    await userManager.AddToRoleAsync(currentUser, model.Role.ToString());
 
                     await signInManager.SignInAsync(user, isPersistent: false);
 
+                    
+
                     uow.Users.Add(currentUser);
+                    
                     uow.SaveChanges();
                     return RedirectToAction("Login", "Account");
                 }
@@ -141,7 +152,7 @@ namespace FreelanceProject.Controllers
             return View(model);
         }
 
-      
+
 
         public async Task<IActionResult> Logout()
         {

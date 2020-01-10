@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FreelanceProject.Models;
@@ -29,8 +30,8 @@ namespace FreelanceProject.Controllers
 
             jobs = jobs
                     .Include(i => i.Client);
-                    
-            
+
+
             //var count = products.Count();
 
             //products = products.Skip((page - 1) * PageSize).Take(PageSize);
@@ -59,11 +60,22 @@ namespace FreelanceProject.Controllers
         public IActionResult JobsForStatus(string status = "Waiting")
         {
             var tempjobstatusmodel = new JobStatusModel();
-            var jobs = uow.JobsFreelancers.Find(i => i.Status == status && i.Freelancer.Id == HttpContext.Session.GetJson<string>("CurrentUserId"))
-                .Include(i=> i.Job)
-                .ThenInclude(i=> i.Client)
-                .Include(i=> i.Freelancer).ToList();
-          
+
+            string currentuserid = HttpContext.Session.GetJson<string>("CurrentUserId");
+
+            if (String.IsNullOrWhiteSpace(currentuserid))
+            {
+                using (StreamReader streamReader = new StreamReader("UserId.txt"))
+                {
+                    currentuserid = streamReader.ReadToEnd();
+                }
+            }
+
+            var jobs = uow.JobsFreelancers.Find(i => i.Status == status && i.Freelancer.Id == currentuserid)
+                .Include(i => i.Job)
+                .ThenInclude(i => i.Client)
+                .Include(i => i.Freelancer).ToList();
+
             return View(jobs);
         }
 
