@@ -8,7 +8,10 @@
 
 @foreach (var item in Model.Jobss)
 {
-    @Html.Partial("_JobItem", item)
+    @if (item.IsPublished == true)
+    {
+        @Html.Partial("_JobItem", item)
+    }
 }
 
 

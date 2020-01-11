@@ -10,7 +10,7 @@ namespace FreelanceProject.Models
     public class Freelancer : IdentityUser
     {
 
-
+      
         public User User { get; set; }
         [Required]
         public string Address { get; set; }

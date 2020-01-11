@@ -10,6 +10,7 @@ using FreelanceProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FreelanceProject.Controllers
 {
@@ -59,7 +60,9 @@ namespace FreelanceProject.Controllers
                 Title = jobClientModel.Job.Title,
                 Token = Guid.NewGuid(),
                 SharedTime = DateTime.Now,
-                Deadline = jobClientModel.Job.Deadline
+                Deadline = jobClientModel.Job.Deadline,
+                IsPublished = true,
+                FirstRequest = false
 
 
             };
@@ -67,6 +70,7 @@ namespace FreelanceProject.Controllers
             job.Client = jobClientModel.Client;
             job.Client.Id = jobClientModel.Client.Id;
             job.Client.StringId = currentuser.Id;
+
             job.Client.CompanyName = jobClientModel.Client.CompanyName;
             //jobClientModel.Client.User.UserName = currentuser.UserName;
 
@@ -86,7 +90,7 @@ namespace FreelanceProject.Controllers
 
 
         }
-         
+
         public IActionResult SuccessfullyAdded()
         {
 
@@ -120,6 +124,62 @@ namespace FreelanceProject.Controllers
             return View(currentjobs);
         }
 
+
+        public IActionResult DeleteJob(Guid token)
+        {
+            var jobfordelete = uow.Jobs.Find(i => i.Token == token).FirstOrDefault();
+            uow.Jobs.Find(i => i.Token == token).FirstOrDefault().IsPublished = false;
+
+            uow.JobsFreelancers.Find(i => i.JobId == jobfordelete.Id).FirstOrDefault().Status = "Job was deleted";
+
+            uow.SaveChanges();
+            return RedirectToAction("LookJobs");
+
+        }
+
+
+        public IActionResult LookRequestsFromFreelancers(int jobId)
+        {
+
+
+
+            var currentFreelancers = uow.JobsFreelancers.Find(i => i.JobId == jobId).Include(i => i.Freelancer).ToList();
+
+            var jobfreelancersmodel = new List<JobFreelancerModel>();
+            var jobfreelancer = new JobFreelancerModel();
+
+            foreach (var freelancer in currentFreelancers)
+            {
+
+                jobfreelancersmodel.Add(new JobFreelancerModel()
+                {
+                    CurrentFreelancer = uow.Freelancers.Find(i => i.Id == freelancer.Freelancer.Id).Include(i => i.User).FirstOrDefault(),
+                    JobId = jobId
+                });
+
+            }
+
+
+
+            return View(jobfreelancersmodel);
+        }
+
+
+        public IActionResult ApplyFreelancer(int jobId, string freelancerId)
+        {
+
+            uow.JobsFreelancers.Find(i => i.JobId == jobId && i.Freelancer.Id == freelancerId).FirstOrDefault().Status = "Applied";
+            uow.SaveChanges();
+            return RedirectToAction("LookJobs");
+        }
+
+        public IActionResult RejectFreelancer(int jobId, string freelancerId)
+        {
+
+            uow.JobsFreelancers.Find(i => i.JobId == jobId && i.Freelancer.Id == freelancerId).FirstOrDefault().Status = "Rejected";
+            uow.SaveChanges();
+            return RedirectToAction("LookJobs");
+        }
 
     }
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FreelanceProject.Migrations.Project
 {
-    public partial class Init5 : Migration
+    public partial class Initial3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,16 +11,21 @@ namespace FreelanceProject.Migrations.Project
                 name: "PK_JobsFreelancers",
                 table: "JobsFreelancers");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Status",
+            migrationBuilder.DropColumn(
+                name: "JobStringId",
+                table: "JobsFreelancers");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Id",
                 table: "JobsFreelancers",
-                nullable: true,
-                oldClrType: typeof(string));
+                nullable: false,
+                defaultValue: 0)
+                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_JobsFreelancers",
                 table: "JobsFreelancers",
-                columns: new[] { "FreelancerId", "JobId" });
+                column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -28,17 +34,19 @@ namespace FreelanceProject.Migrations.Project
                 name: "PK_JobsFreelancers",
                 table: "JobsFreelancers");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Status",
+            migrationBuilder.DropColumn(
+                name: "Id",
+                table: "JobsFreelancers");
+
+            migrationBuilder.AddColumn<string>(
+                name: "JobStringId",
                 table: "JobsFreelancers",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldNullable: true);
+                nullable: true);
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_JobsFreelancers",
                 table: "JobsFreelancers",
-                columns: new[] { "FreelancerId", "JobId", "Status" });
+                columns: new[] { "FreelancerId", "JobId" });
         }
     }
 }

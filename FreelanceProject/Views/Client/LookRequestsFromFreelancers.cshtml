@@ -1,0 +1,26 @@
+﻿@model List<JobFreelancerModel>
+
+@{
+    ViewData["Title"] = "LookRequestsFromFreelancers";
+}
+
+<h1>LookRequestsFromFreelancers</h1>
+
+@foreach (var jobfreelancer in Model)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">  @jobfreelancer.CurrentFreelancer.User.Name @jobfreelancer.CurrentFreelancer.User.Surname</h5>
+            <p class="card-text">Skills : @jobfreelancer.CurrentFreelancer.Skills</p>
+            <p class="card-text">Description : @jobfreelancer.CurrentFreelancer.User.Description </p>
+            <span>
+
+                
+                <a href="#" class="btn btn-primary">Details</a>
+                <a asp-action="ApplyFreelancer" asp-controller="Client" asp-route-jobId="@jobfreelancer.JobId" asp-route-freelancerId="@jobfreelancer.CurrentFreelancer.Id" class="btn btn-primary">Apply</a>
+                <a asp-action="RejectFreelancer" asp-controller="Client" asp-route-jobId="@jobfreelancer.JobId" asp-route-freelancerId="@jobfreelancer.CurrentFreelancer.Id" class="btn btn-danger">Reject</a>
+
+            </span>
+        </div>
+    </div>
+}

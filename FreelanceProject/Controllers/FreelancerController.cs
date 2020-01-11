@@ -57,7 +57,7 @@ namespace FreelanceProject.Controllers
         }
 
 
-        public IActionResult JobsForStatus(string status = "Waiting")
+        public IActionResult JobsForStatus(/*string status = "Waiting"*/)
         {
             var tempjobstatusmodel = new JobStatusModel();
 
@@ -71,7 +71,7 @@ namespace FreelanceProject.Controllers
                 }
             }
 
-            var jobs = uow.JobsFreelancers.Find(i => i.Status == status && i.Freelancer.Id == currentuserid)
+            var jobs = uow.JobsFreelancers.Find(i =>/* i.Status == status &&*/ i.Freelancer.Id == currentuserid)
                 .Include(i => i.Job)
                 .ThenInclude(i => i.Client)
                 .Include(i => i.Freelancer).ToList();

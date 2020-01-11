@@ -30,7 +30,15 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
         {
             modelBuilder.Entity<JobFreelancer>()
 
-                .HasKey(pk => new { pk.FreelancerId, pk.JobId });
+                .HasKey(pk => new { pk.Id});
+
+            modelBuilder.Entity<JobFreelancer>()
+
+              .Property(pk => pk.JobId);
+
+            modelBuilder.Entity<JobFreelancer>()
+
+              .Property(pk => pk.FreelancerId);
 
             modelBuilder.Entity<JobFreelancer>()
 

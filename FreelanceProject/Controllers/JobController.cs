@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FreelanceProject.Entity;
 using FreelanceProject.Models;
 using FreelanceProject.Repository.Abstract;
+using FreelanceProject.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -36,8 +37,25 @@ namespace FreelanceProject.Controllers
         public IActionResult Details(int jobId)
         {
 
-            currentJobId =jobId;
-             jobs = uow.Jobs.Find(i => i.Id == jobId);
+            currentJobId = jobId;
+            jobs = uow.Jobs.Find(i => i.Id == jobId);
+
+            var currentjob = uow.Jobs.Find(i => i.Id == jobId).FirstOrDefault();
+
+            var jobfreelancer = uow.JobsFreelancers.Find(i => i.Job.Id == jobId).Include(i => i.Freelancer).ToList();
+
+            foreach (var item in jobfreelancer)
+            {
+                if(item.Freelancer.Id == HttpContext.Session.GetJson<string>("CurrentUserId"))
+                {
+                    foreach (var job in jobs)
+                    {
+                        job.FirstRequest = true;
+                    }
+                     
+                }
+            }
+             
 
 
             jobs = jobs
@@ -66,13 +84,13 @@ namespace FreelanceProject.Controllers
             {
                 Jobss = jobs
 
-            }); 
+            });
 
-           
+
         }
 
 
-        [Authorize(Roles="Freelancer")]
+        [Authorize(Roles = "Freelancer")]
         public async Task<IActionResult> SendRequest(int Id)
         {
             //jobs = uow.Jobs.Find(i => i.Id == Id);
@@ -111,7 +129,7 @@ namespace FreelanceProject.Controllers
             var temp = new JobFreelancer();
 
             temp.Freelancer = jobFreelancerModel.CurrentFreelancer;
-            temp.Freelancer.Id= jobFreelancerModel.CurrentFreelancer.Id;
+            temp.Freelancer.Id = jobFreelancerModel.CurrentFreelancer.Id;
             temp.Freelancer.UserName = jobFreelancerModel.CurrentFreelancer.UserName;
             temp.Freelancer.User.Age = jobFreelancerModel.CurrentFreelancer.User.Age;
             temp.Freelancer.User.Name = jobFreelancerModel.CurrentFreelancer.User.Name;
@@ -120,19 +138,18 @@ namespace FreelanceProject.Controllers
             temp.Freelancer.User.UserName = jobFreelancerModel.CurrentFreelancer.UserName;
             temp.Freelancer.User.Surname = jobFreelancerModel.CurrentFreelancer.User.Surname;
             temp.DateOfRequest = DateTime.Now;
-
-
+           
             temp.Job = uow.Jobs.Find(i => i.Id == jobFreelancerModel.JobId).First();
-
-            if(uow.Freelancers.Find(i=> i.Id == jobFreelancerModel.CurrentFreelancer.Id).Count() == 0)
+            
+            if (uow.Freelancers.Find(i => i.Id ==  HttpContext.Session.GetJson<string>("CurrentUserId")).FirstOrDefault() == null)
             {
                 uow.Freelancers.Add(temp.Freelancer);
             }
-            
+
 
             temp.Status = "Waiting";
 
-           
+
             uow.JobsFreelancers.Add(temp);
             uow.SaveChanges();
 

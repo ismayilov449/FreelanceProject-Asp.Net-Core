@@ -49,5 +49,11 @@ namespace FreelanceProject.Models
         public DateTime Deadline { get; set; }
 
         public Guid Token { get; set; }
+
+        [Required]
+        public bool IsPublished { get; set; }
+
+        [Required]
+        public bool FirstRequest { get; set; }
     }
 }

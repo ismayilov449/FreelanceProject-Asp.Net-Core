@@ -9,6 +9,7 @@ namespace FreelanceProject.Entity
     public class JobFreelancer
     {
 
+        public int Id { get; set; }
         public int JobId { get; set; }
         public Job Job { get; set; }
 
@@ -17,6 +18,8 @@ namespace FreelanceProject.Entity
         public Freelancer Freelancer { get; set; }
 
         public string Status { get; set; }
+
+        
 
         public DateTime DateOfRequest { get; set; }
     }

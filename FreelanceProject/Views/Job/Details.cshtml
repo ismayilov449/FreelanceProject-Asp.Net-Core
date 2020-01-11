@@ -50,13 +50,28 @@
 
 @if (@User.Identity.IsAuthenticated && User.IsInRole("Freelancer"))
 {
-    <a asp-action="SendRequest" asp-route-Id="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Prepare </a>
-    <a asp-action="Index" asp-controller="Freelancer" class="btn btn-danger">Cancel</a>
+    <span>
+        @if (@Model.Jobss.FirstOrDefault().FirstRequest == true)
+        {
+            <a asp-action="Index" asp-controller="Freelancer" class="btn btn-block">You have already sent request </a>
+        }
+        else
+        {
+            <a asp-action="SendRequest" asp-route-Id="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Prepare </a>
+        }
+        <a asp-action="Index" asp-controller="Freelancer" class="btn btn-danger">Cancel</a>
+    </span>
+
 }
 
 @if (@User.Identity.IsAuthenticated && User.IsInRole("Client"))
 {
+<span>
+
+    <a asp-action="LookRequestsFromFreelancers" asp-controller="Client" asp-route-jobId="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Look Requests</a>
     <a asp-action="LookJobs" asp-controller="Client" class="btn btn-danger">Cancel</a>
+    <a asp-action="DeleteJob" asp-controller="Client" asp-route-token="@Model.Jobss.FirstOrDefault().Token" class="btn btn-danger">Delete Job</a>
+</span>
 }
 
 

@@ -21,17 +21,21 @@ namespace FreelanceProject.Migrations.Project
 
             modelBuilder.Entity("FreelanceProject.Entity.JobFreelancer", b =>
                 {
-                    b.Property<int>("FreelancerId");
-
-                    b.Property<int>("JobId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateOfRequest");
 
+                    b.Property<int>("FreelancerId");
+
                     b.Property<string>("FreelancerId1");
+
+                    b.Property<int>("JobId");
 
                     b.Property<string>("Status");
 
-                    b.HasKey("FreelancerId", "JobId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FreelancerId1");
 
@@ -161,6 +165,10 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<string>("Experience")
                         .IsRequired();
+
+                    b.Property<bool>("FirstRequest");
+
+                    b.Property<bool>("IsPublished");
 
                     b.Property<int>("JobCategoryId");
 

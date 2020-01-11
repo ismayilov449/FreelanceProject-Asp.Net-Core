@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200110195012_ModifyClientEntity")]
-    partial class ModifyClientEntity
+    [Migration("20200111130841_Initial2")]
+    partial class Initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,8 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<DateTime>("DateOfRequest");
 
                     b.Property<string>("FreelancerId1");
+
+                    b.Property<string>("JobStringId");
 
                     b.Property<string>("Status");
 
@@ -163,6 +165,10 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<string>("Experience")
                         .IsRequired();
+
+                    b.Property<bool>("FirstRequest");
+
+                    b.Property<bool>("IsPublished");
 
                     b.Property<int>("JobCategoryId");
 

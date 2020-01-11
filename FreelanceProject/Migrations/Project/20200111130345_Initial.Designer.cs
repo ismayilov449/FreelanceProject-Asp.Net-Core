@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200105123854_Init")]
-    partial class Init
+    [Migration("20200111130345_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,27 @@ namespace FreelanceProject.Migrations.Project
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FreelanceProject.Entity.JobFreelancer", b =>
+                {
+                    b.Property<int>("FreelancerId");
+
+                    b.Property<int>("JobId");
+
+                    b.Property<DateTime>("DateOfRequest");
+
+                    b.Property<string>("FreelancerId1");
+
+                    b.Property<string>("Status");
+
+                    b.HasKey("FreelancerId", "JobId");
+
+                    b.HasIndex("FreelancerId1");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("JobsFreelancers");
+                });
 
             modelBuilder.Entity("FreelanceProject.Models.Client", b =>
                 {
@@ -52,6 +73,8 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("StringId");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -130,6 +153,8 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<int?>("ClientId");
 
+                    b.Property<DateTime>("Deadline");
+
                     b.Property<string>("Description")
                         .IsRequired();
 
@@ -138,6 +163,10 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<string>("Experience")
                         .IsRequired();
+
+                    b.Property<bool>("FirstRequest");
+
+                    b.Property<bool>("IsPublished");
 
                     b.Property<int>("JobCategoryId");
 
@@ -149,6 +178,8 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<string>("RequiredSkills")
                         .IsRequired();
+
+                    b.Property<DateTime>("SharedTime");
 
                     b.Property<string>("Title")
                         .IsRequired();
@@ -183,6 +214,8 @@ namespace FreelanceProject.Migrations.Project
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<int>("Age");
 
                     b.Property<string>("ConcurrencyStamp");
 
@@ -222,7 +255,19 @@ namespace FreelanceProject.Migrations.Project
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("FreelanceProject.Entity.JobFreelancer", b =>
+                {
+                    b.HasOne("FreelanceProject.Models.Freelancer", "Freelancer")
+                        .WithMany()
+                        .HasForeignKey("FreelancerId1");
+
+                    b.HasOne("FreelanceProject.Models.Job", "Job")
+                        .WithMany()
+                        .HasForeignKey("JobId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("FreelanceProject.Models.Client", b =>

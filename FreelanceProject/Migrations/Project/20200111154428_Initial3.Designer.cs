@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    [Migration("20200110141121_Init6")]
-    partial class Init6
+    [Migration("20200111154428_Initial3")]
+    partial class Initial3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,17 +23,21 @@ namespace FreelanceProject.Migrations.Project
 
             modelBuilder.Entity("FreelanceProject.Entity.JobFreelancer", b =>
                 {
-                    b.Property<int>("FreelancerId");
-
-                    b.Property<int>("JobId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateOfRequest");
 
+                    b.Property<int>("FreelancerId");
+
                     b.Property<string>("FreelancerId1");
+
+                    b.Property<int>("JobId");
 
                     b.Property<string>("Status");
 
-                    b.HasKey("FreelancerId", "JobId");
+                    b.HasKey("Id");
 
                     b.HasIndex("FreelancerId1");
 
@@ -73,6 +77,8 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("StringId");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -161,6 +167,10 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<string>("Experience")
                         .IsRequired();
+
+                    b.Property<bool>("FirstRequest");
+
+                    b.Property<bool>("IsPublished");
 
                     b.Property<int>("JobCategoryId");
 

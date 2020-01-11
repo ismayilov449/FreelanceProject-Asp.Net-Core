@@ -2,21 +2,21 @@
 
 namespace FreelanceProject.Migrations.Project
 {
-    public partial class ModifyClientEntity : Migration
+    public partial class Initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "StringId",
-                table: "Clients",
+                name: "JobStringId",
+                table: "JobsFreelancers",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "StringId",
-                table: "Clients");
+                name: "JobStringId",
+                table: "JobsFreelancers");
         }
     }
 }
