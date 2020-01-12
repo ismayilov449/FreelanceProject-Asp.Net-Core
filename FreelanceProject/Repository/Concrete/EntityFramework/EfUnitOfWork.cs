@@ -27,6 +27,58 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         private IJobFreelancerRepository _jobsFreelancers;
 
+        private ICityRepository _cities;
+
+        private IExperienceRepository _experience;
+
+        private IEducationRepository _education;
+        
+        private IJobCategoryRepository _jobCategories;
+
+        private ISalaryRepository _salary;
+
+
+
+
+        public ISalaryRepository Salary
+        {
+            get
+            {
+                return _salary ?? (_salary = new EfSalaryRepository(projectContext));
+            }
+        }
+
+        public IJobCategoryRepository Categories
+        {
+            get
+            {
+                return _jobCategories ?? (_jobCategories = new EfJobCategoryRepository(projectContext));
+            }
+        }
+
+        public IEducationRepository Education
+        {
+            get
+            {
+                return _education ?? (_education = new EfEducationRepository(projectContext));
+            }
+        }
+
+        public IExperienceRepository Experience
+        {
+            get
+            {
+                return _experience ?? (_experience = new EfExperienceRepository(projectContext));
+            }
+        }
+
+        public ICityRepository Cities
+        {
+            get
+            {
+                return _cities ?? (_cities = new EfCityRepository(projectContext));
+            }
+        }
 
         public IJobFreelancerRepository JobsFreelancers
         {

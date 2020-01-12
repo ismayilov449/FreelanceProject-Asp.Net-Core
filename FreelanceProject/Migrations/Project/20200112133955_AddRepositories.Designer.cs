@@ -4,14 +4,16 @@ using FreelanceProject.Repository.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20200112133955_AddRepositories")]
+    partial class AddRepositories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,6 @@ namespace FreelanceProject.Migrations.Project
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("EducationName");
-
-                    b.Property<int>("EducationValue");
 
                     b.HasKey("Id");
 
@@ -208,9 +208,6 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<string>("Age")
                         .IsRequired();
 
-                    b.Property<string>("Category")
-                        .IsRequired();
-
                     b.Property<string>("City")
                         .IsRequired();
 
@@ -231,6 +228,8 @@ namespace FreelanceProject.Migrations.Project
 
                     b.Property<bool>("IsPublished");
 
+                    b.Property<int>("JobCategoryId");
+
                     b.Property<string>("Position")
                         .IsRequired();
 
@@ -250,6 +249,8 @@ namespace FreelanceProject.Migrations.Project
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
+
+                    b.HasIndex("JobCategoryId");
 
                     b.ToTable("Jobs");
                 });
@@ -348,6 +349,11 @@ namespace FreelanceProject.Migrations.Project
                     b.HasOne("FreelanceProject.Models.Client", "Client")
                         .WithMany("Jobs")
                         .HasForeignKey("ClientId");
+
+                    b.HasOne("FreelanceProject.Models.JobCategory", "JobCategory")
+                        .WithMany()
+                        .HasForeignKey("JobCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

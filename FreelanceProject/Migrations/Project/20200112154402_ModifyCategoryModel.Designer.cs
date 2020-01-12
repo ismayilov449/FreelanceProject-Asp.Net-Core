@@ -4,14 +4,16 @@ using FreelanceProject.Repository.Concrete.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FreelanceProject.Migrations.Project
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20200112154402_ModifyCategoryModel")]
+    partial class ModifyCategoryModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,8 +41,6 @@ namespace FreelanceProject.Migrations.Project
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("EducationName");
-
-                    b.Property<int>("EducationValue");
 
                     b.HasKey("Id");
 
@@ -208,9 +208,6 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<string>("Age")
                         .IsRequired();
 
-                    b.Property<string>("Category")
-                        .IsRequired();
-
                     b.Property<string>("City")
                         .IsRequired();
 
@@ -230,6 +227,9 @@ namespace FreelanceProject.Migrations.Project
                     b.Property<bool>("FirstRequest");
 
                     b.Property<bool>("IsPublished");
+
+                    b.Property<string>("JobCategory")
+                        .IsRequired();
 
                     b.Property<string>("Position")
                         .IsRequired();

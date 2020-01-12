@@ -24,6 +24,7 @@ namespace FreelanceProject.Controllers
         public ClientController(UserManager<User> _userManager, IUnitOfWork _uow)
         {
             uow = _uow;
+            FakeRepo.uow = uow;
             userManager = _userManager;
         }
 
@@ -35,7 +36,8 @@ namespace FreelanceProject.Controllers
 
         public IActionResult CreateJob()
         {
-
+             
+            
             return View();
         }
 
@@ -44,7 +46,7 @@ namespace FreelanceProject.Controllers
         {
             var currentuser = await userManager.FindByNameAsync(jobClientModel.Client.UserName);
 
-
+            
 
             var job = new Job()
             {
@@ -53,7 +55,7 @@ namespace FreelanceProject.Controllers
                 Description = jobClientModel.Job.Description,
                 Education = jobClientModel.Job.Education,
                 Experience = jobClientModel.Job.Experience,
-                JobCategory = jobClientModel.Job.JobCategory,
+                Category = jobClientModel.Job.Category,
                 Position = jobClientModel.Job.Position,
                 Price = jobClientModel.Job.Price,
                 RequiredSkills = jobClientModel.Job.RequiredSkills,

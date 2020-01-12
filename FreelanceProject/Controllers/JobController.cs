@@ -55,12 +55,11 @@ namespace FreelanceProject.Controllers
                      
                 }
             }
-             
+
 
 
             jobs = jobs
-                    .Include(i => i.Client)
-                    .Include(i => i.JobCategory);
+                    .Include(i => i.Client);
 
 
             //var count = products.Count();

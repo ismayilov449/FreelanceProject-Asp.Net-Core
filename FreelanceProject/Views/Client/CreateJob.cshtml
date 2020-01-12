@@ -1,5 +1,6 @@
 ﻿@model JobClientModel
 @using FreelanceProject.Services
+@using FreelanceProject.Repository.Concrete.EntityFramework
 
 @{
     ViewData["Title"] = "CreateJob";
@@ -32,12 +33,12 @@
         <label asp-for="@Model.Job.Title"></label>
         <input asp-for="@Model.Job.Title" class="form-control" />
 
-        <label asp-for="@Model.Job.JobCategory.CategoryName"></label>
-        <select class="form-control" asp-for="@Model.Job.JobCategory.CategoryName">
+        <label asp-for="@Model.Job.Category"></label>
+        <select class="form-control" asp-for="@Model.Job.Category">
             <option disabled selected>Choose..</option>
-            @foreach (var item in @FakeRepo.GetCategories())
+            @foreach (var item in FakeRepo.GetCategories())
             {
-                <option>@item</option>
+                <option value="@item.CategoryName">@item.CategoryName</option>
             }
         </select>
 
@@ -48,14 +49,20 @@
         <label asp-for="@Model.Job.City"></label>
         <select class="form-control" asp-for="@Model.Job.City">
             <option disabled selected>Choose..</option>
-            @foreach (var item in @FakeRepo.GetCities())
+            @foreach (var item in FakeRepo.GetCities())
             {
-                <option>@item</option>
+                <option value="@item.CityName">@item.CityName</option>
             }
         </select>
 
         <label asp-for="@Model.Job.Price"></label>
-        <input asp-for="@Model.Job.Price" class="form-control" />
+        <select class="form-control" asp-for="@Model.Job.Price">
+            <option disabled selected>Choose..</option>
+            @foreach (var item in FakeRepo.GetSalary())
+            {
+                <option value="@item.SalaryValue">@item.SalaryName </option>
+            }
+        </select>
 
         <label asp-for="@Model.Job.Age"></label>
         <input asp-for="@Model.Job.Age" class="form-control" />
@@ -63,18 +70,18 @@
         <label asp-for="@Model.Job.Education"></label>
         <select class="form-control" asp-for="@Model.Job.Education">
             <option disabled selected>Choose..</option>
-            @foreach (var item in @FakeRepo.GetEducation())
+            @foreach (var item in FakeRepo.GetEducation())
             {
-                <option>@item</option>
+                <option value="@item.EducationName">@item.EducationName </option>
             }
         </select>
 
         <label asp-for="@Model.Job.Experience"></label>
         <select class="form-control" asp-for="@Model.Job.Experience">
             <option disabled selected>Choose..</option>
-            @foreach (var item in @FakeRepo.GetPractise())
+            @foreach (var item in FakeRepo.GetExperiences())
             {
-                <option>@item</option>
+                <option value="@item.ExperienceValue">@item.ExperienceName </option>
             }
         </select>
 

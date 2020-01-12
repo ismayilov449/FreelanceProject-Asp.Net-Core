@@ -29,8 +29,18 @@ namespace FreelanceProject
 
             services.AddTransient<IJobRepository, EfJobRepository>();
             services.AddTransient<IClientRepository, EfClientRepository>();
+            services.AddTransient<ICityRepository, EfCityRepository>();
+            services.AddTransient<IEducationRepository, EfEducationRepository>();
+            services.AddTransient<IExperienceRepository, EfExperienceRepository>();
+            services.AddTransient<IJobCategoryRepository, EfJobCategoryRepository>();
+            services.AddTransient<ISalaryRepository, EfSalaryRepository>();
             services.AddTransient<IFreelancerRepository, EfFreelancerRepository>();
+
             services.AddTransient<IUnitOfWork, EfUnitOfWork>();
+
+
+
+
 
             services.AddIdentity<User, IdentityRole>(options =>
             {

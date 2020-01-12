@@ -1,0 +1,87 @@
+﻿@model SearchJobModel
+@using FreelanceProject.Services
+
+@{
+    ViewData["Title"] = "SearchJobs";
+}
+
+<h1>SearchJobs</h1>
+
+<form asp-action="SearchJobs" asp-controller="Freelancer" method="get">
+    <input name="utf8" type="hidden" value="✓">
+    <input type="hidden" name="search[company_id]" id="search_company_id">
+    <div class="search-form-row">
+        <div>
+            <label asp-for="@Model.Category">Category</label>
+            <select asp-for="@Model.Category">
+                <option disabled selected>Choose..</option>
+                @foreach (var item in FakeRepo.GetCategories())
+                {
+                    <option>@item.CategoryName</option>
+                }
+
+
+            </select>
+        </div>
+        <div>
+            <label asp-for="@Model.City">City</label>
+            <select asp-for="@Model.City">
+                <option disabled selected>Choose..</option>
+                @foreach (var item in FakeRepo.GetCities())
+                {
+                    <option>@item.CityName</option>
+                }
+
+            </select>
+        </div>
+        <div>
+            <label>Salary</label>
+            <select asp-for="@Model.Salary">
+                <option disabled selected>Choose..</option>
+                @foreach (var item in FakeRepo.GetSalary())
+                {
+                    <option value="@item.SalaryValue">@item.SalaryName</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="search-form-row">
+        <div>
+            <label>Education</label>
+            <select asp-for="@Model.Education">
+
+                <option disabled selected>Choose..</option>
+                @foreach (var item in FakeRepo.GetEducation())
+                {
+                    <option>@item.EducationName</option>
+                }
+
+
+            </select>
+        </div>
+        <div>
+            <label>Experience</label>
+            <select asp-for="@Model.Experience">
+                <option disabled selected>Choose..</option>
+                @foreach (var item in FakeRepo.GetExperiences())
+                {
+                    <option>@item.ExperienceName</option>
+                }
+            </select>
+        </div>
+
+    </div>
+    <div class="btn-container">
+        <input type="submit" value="Search">
+    </div>
+</form>
+
+<div>
+    @foreach (var item in @Model.Jobs)
+    {
+        @if (item.IsPublished == true)
+        {
+            @Html.Partial("_JobItem", item)
+        }
+    }
+</div>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FreelanceProject.Entity;
+using FreelanceProject.Models;
+using FreelanceProject.Repository.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,46 +10,32 @@ namespace FreelanceProject.Services
 {
     static public class FakeRepo
     {
+        static public IUnitOfWork uow { get; set; }
+      
 
-        static private List<string> Categories = new List<string>()
+        static public List<JobCategory> GetCategories()
         {
-             "Credit","Marketing","IT","Reseption"
-        };
-
-        static private List<string> Cities = new List<string>()
-        {
-            "Baku","Sumgayit","Ganja"
-        };
-
-        static private List<string> Education = new List<string>()
-        {
-            "Ali","Natamam Ali","Orta"
-        };
-
-        static private List<string> Practise = new List<string>()
-        {
-            "Baku","Sumgayit","Ganja"
-        };
-
-
-        static public List<string> GetCategories()
-        {
-            return Categories;
+            return uow.Categories.GetAll().ToList();
         }
 
-        static public List<string> GetCities()
+        static public List<City> GetCities()
         {
-            return Cities;
+            return uow.Cities.GetAll().ToList();
         }
 
-        static public List<string> GetEducation()
+        static public List<Education> GetEducation()
         {
-            return Education;
+            return uow.Education.GetAll().ToList();
         }
 
-        static public List<string> GetPractise()
+        static public List<Experience> GetExperiences()
         {
-            return Practise;
+            return uow.Experience.GetAll().ToList();
+        }
+
+        static public List<Salary> GetSalary()
+        {
+            return uow.Salary.GetAll().ToList();
         }
 
     }

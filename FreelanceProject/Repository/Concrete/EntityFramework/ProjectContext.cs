@@ -26,6 +26,17 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Education> Education { get; set; }
+
+        public DbSet<Experience> Experience { get; set; }
+
+        public DbSet<Salary> Salary { get; set; }
+
+        public DbSet<JobCategory> JobCategories { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<JobFreelancer>()

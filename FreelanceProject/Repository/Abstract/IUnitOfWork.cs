@@ -11,7 +11,11 @@ namespace FreelanceProject.Repository.Abstract
         IFreelancerRepository Freelancers { get; }
         IJobRepository Jobs { get; }
         IUserRepository Users { get; }
-
+        IJobCategoryRepository Categories { get; }
+        ICityRepository Cities { get; }
+        IExperienceRepository Experience { get; }
+        IEducationRepository Education { get; }
+        ISalaryRepository Salary { get; }
         IJobFreelancerRepository JobsFreelancers { get; }
 
 

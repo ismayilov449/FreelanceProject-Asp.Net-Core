@@ -38,7 +38,7 @@ namespace FreelanceProject.Models
         public string Age { get; set; }
 
         [Required]
-        public JobCategory JobCategory { get; set; }
+        public string Category { get; set; }
 
         [Required]
         public string Position { get; set; }
