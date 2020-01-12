@@ -111,14 +111,9 @@ namespace FreelanceProject.Controllers
                     if (searchJobModel.Education != "All")
                     {
                         notnull += "Education/";
-                        educationvalue = uow.Education.Find(i => i.EducationName == searchJobModel.Education).FirstOrDefault().EducationValue;
 
-                        var educations = uow.Education.Find(i => i.EducationValue >= educationvalue).ToList();
-
-                        foreach (var item in educations)
-                        {
-                            currentjobs = currentjobs.Where(i => i.Education == item.EducationName);
-                        }
+                        currentjobs = currentjobs.Where(i => i.Education == searchJobModel.Education);
+                       
                     }
                 }
                 if (!String.IsNullOrWhiteSpace(searchJobModel.Experience))
@@ -128,12 +123,24 @@ namespace FreelanceProject.Controllers
                         notnull += "Experience/";
                         experiencevalue = uow.Experience.Find(i => i.ExperienceName == searchJobModel.Experience).FirstOrDefault().ExperienceValue;
 
-                        var experiences = uow.Experience.Find(i => i.ExperienceValue >= experiencevalue).ToList();
-
-                        foreach (var item in experiences)
+                        if (experiencevalue == 2)
                         {
-                            currentjobs = currentjobs.Where(i => i.Experience == item.ExperienceName);
+                            currentjobs = currentjobs.Where(i => Int32.Parse(i.Experience) <= 1);
                         }
+                        if(experiencevalue == 3)
+                        {
+                            currentjobs = currentjobs.Where(i => Int32.Parse(i.Experience) > 1 && Int32.Parse(i.Experience) <= 3);
+                        }
+                        if(experiencevalue == 4)
+                        {
+                            currentjobs = currentjobs.Where(i => Int32.Parse(i.Experience) > 3 && Int32.Parse(i.Experience) <= 5);
+
+                        }
+                        if(experiencevalue == 5)
+                        {
+                            currentjobs = currentjobs.Where(i =>  Int32.Parse(i.Experience) > 5);
+                        }
+
 
                     }
 
