@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FreelanceProject.Controllers
 {
+    
     public class HomeController : Controller
     {
         [Authorize]

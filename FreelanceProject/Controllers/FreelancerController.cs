@@ -31,24 +31,7 @@ namespace FreelanceProject.Controllers
 
             jobs = jobs
                     .Include(i => i.Client);
-
-
-            //var count = products.Count();
-
-            //products = products.Skip((page - 1) * PageSize).Take(PageSize);
-
-            //return View(new ProductListModel()
-            //{
-            //    Products = products,
-            //    PagingInfo = new PagingInfo()
-            //    {
-            //        CurrentPage = page,
-            //        ItemPerPage = PageSize,
-            //        TotalItems = count
-            //    }
-
-            //});
-
+             
 
             return View(new Jobs()
             {
@@ -84,8 +67,6 @@ namespace FreelanceProject.Controllers
         public IActionResult SearchJobs(SearchJobModel searchJobModel)
         {
             var jobs = new List<Job>();
-            string notnull = "";
-            int educationvalue = 0;
             int experiencevalue = 0;
 
             var currentjobs = uow.Jobs.GetAll();
@@ -110,7 +91,6 @@ namespace FreelanceProject.Controllers
                 {
                     if (searchJobModel.Education != "All")
                     {
-                        notnull += "Education/";
 
                         currentjobs = currentjobs.Where(i => i.Education == searchJobModel.Education);
                        
@@ -120,7 +100,6 @@ namespace FreelanceProject.Controllers
                 {
                     if (searchJobModel.Experience != "All")
                     {
-                        notnull += "Experience/";
                         experiencevalue = uow.Experience.Find(i => i.ExperienceName == searchJobModel.Experience).FirstOrDefault().ExperienceValue;
 
                         if (experiencevalue == 2)
@@ -148,7 +127,6 @@ namespace FreelanceProject.Controllers
                 if (searchJobModel.Salary != 0)
                 {
 
-                    notnull += "Salary";
                     currentjobs = currentjobs.Where(i => Int32.Parse(i.Price) >= searchJobModel.Salary);
                 }
 

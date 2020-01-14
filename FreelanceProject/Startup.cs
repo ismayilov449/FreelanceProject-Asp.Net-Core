@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -60,7 +62,7 @@ namespace FreelanceProject
 
            
 
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddMemoryCache();
             services.AddSession();
@@ -80,13 +82,27 @@ namespace FreelanceProject
             app.UseStatusCodePages();
             app.UseAuthentication();
 
+
             app.UseMvc(routes =>
             {
+
+
+                //routes.MapRoute(
+                //name: "areas",
+                //template: "{area:exists}/{controller=Home}/{action=Index}");
+
+               
+
                 routes.MapRoute(
                      name: "default",
                      template: "{controller}/{action}/{id?}",
                      defaults: new { controller = "Home", action = "Index" }
                      );
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller}/{action}/{id?}",
+                     defaults: new { controller = "Home", action = "Index" }
+                    );
 
 
             });

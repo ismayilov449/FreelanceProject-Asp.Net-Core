@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FreelanceProject.Controllers
 {
     [Authorize]
+    
     public class AccountController : Controller
     {
         private UserManager<User> userManager;
@@ -37,6 +38,9 @@ namespace FreelanceProject.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
+
+           
+
             ViewBag.returnUrl = returnUrl;
             return View();
         }
@@ -47,6 +51,7 @@ namespace FreelanceProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model, string returnUrl)
         {
+           
 
             if (ModelState.IsValid)
             {
