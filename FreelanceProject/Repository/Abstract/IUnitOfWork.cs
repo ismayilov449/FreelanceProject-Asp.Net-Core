@@ -17,6 +17,7 @@ namespace FreelanceProject.Repository.Abstract
         IEducationRepository Education { get; }
         ISalaryRepository Salary { get; }
         IJobFreelancerRepository JobsFreelancers { get; }
+        IJobClientRepository JobsClients { get; }
 
 
         int SaveChanges();

@@ -60,6 +60,30 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
                .Property(pk => pk.DateOfRequest);
 
+
+
+            modelBuilder.Entity<JobClient>()
+
+              .HasKey(pk => new { pk.Id });
+
+            modelBuilder.Entity<JobClient>()
+
+              .Property(pk => pk.JobId);
+
+            modelBuilder.Entity<JobClient>()
+
+              .Property(pk => pk.ClientId);
+
+            modelBuilder.Entity<JobClient>()
+
+               .Property(pk => pk.Status);
+
+
+            modelBuilder.Entity<JobClient>()
+
+               .Property(pk => pk.DateOfRequest);
+
+
             base.OnModelCreating(modelBuilder);
         }
 

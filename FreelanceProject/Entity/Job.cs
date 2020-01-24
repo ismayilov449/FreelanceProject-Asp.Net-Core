@@ -54,6 +54,9 @@ namespace FreelanceProject.Models
         public bool IsPublished { get; set; }
 
         [Required]
+        public bool IsApproved { get; set; }
+
+        [Required]
         public bool FirstRequest { get; set; }
     }
 }

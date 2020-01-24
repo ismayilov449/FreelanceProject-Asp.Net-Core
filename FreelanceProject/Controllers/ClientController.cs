@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using FreelanceProject.Entity;
 using FreelanceProject.Models;
 using FreelanceProject.Repository.Abstract;
 using FreelanceProject.Repository.Concrete.EntityFramework;
@@ -64,6 +65,7 @@ namespace FreelanceProject.Controllers
                 SharedTime = DateTime.Now,
                 Deadline = jobClientModel.Job.Deadline,
                 IsPublished = true,
+                IsApproved = false,
                 FirstRequest = false
 
 
@@ -83,6 +85,14 @@ namespace FreelanceProject.Controllers
                 uow.Users.Add(currentuser);
             }
 
+            uow.JobsClients.Add(new JobClient()
+            {
+                Client = job.Client,
+                Job = job,
+                DateOfRequest = DateTime.Now,
+                Status = "Waiting"
+
+            });
 
             uow.Jobs.Add(job);
 

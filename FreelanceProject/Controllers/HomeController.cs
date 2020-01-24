@@ -18,9 +18,12 @@ namespace FreelanceProject.Controllers
             {
                 return RedirectToAction("Index","Freelancer");
             }
-            else
+            else if(User.IsInRole("Client"))
             {
                 return RedirectToAction("IndexForClient");
+            }else
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             
         }

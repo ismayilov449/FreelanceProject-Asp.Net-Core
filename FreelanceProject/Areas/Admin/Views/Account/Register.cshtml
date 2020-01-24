@@ -1,0 +1,69 @@
+﻿@model RegisterModel
+
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+
+<div class="bg-primary text-white p-1 m-1">
+    <h2>Register user</h2>
+</div>
+
+<form class="m-1 p-1" asp-action="Register" method="post">
+
+    <div class="text-danger" asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+
+        <label asp-for="Surname"></label>
+        <input asp-for="Surname" class="form-control" />
+
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+          
+        <input type="hidden" asp-for="Role.Name" value="Admin" class="form-control" />
+       
+         
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <a asp-action="Index" class="btn btn-danger">Cancel</a>
+
+
+</form>
+
+@*<script language="Javascript">
+    
+function roleSelectFunction() {
+  var x = document.getElementById("roleSelect").value;
+   
+    if(document.getElementById("roleSelect").value == "Freelancer"){
+
+        document.getElementById("registerDiv").innerHTML = "";
+       
+        document.getElementById("registerDiv").innerHTML += 
+        "<label >Address</label>"+
+        "<input asp-for="" class='form-control' />"+
+
+        "<label >Skills</label>"+
+        "<input asp-for='Skills' class='form-control' />"+
+
+        "<label>WorkHoursPerWeek</label>"+
+        "<input asp-for='WorkHoursPerWeek' class='form-control' />";
+    }else
+    {
+        document.getElementById("registerDiv").innerHTML = "";
+         document.getElementById("registerDiv").innerHTML += 
+        " <label asp-for='CompanyName'>Company Name</label>"+
+        "<input asp-for='CompanyName' class='form-control' />";
+       
+    }
+}
+</script>*@

@@ -1,0 +1,78 @@
+﻿@model Jobs
+
+
+<div class="bg-primary text-white p-1 m-1">
+    <h2>@Model.Jobss.FirstOrDefault().Title</h2>
+</div>
+
+
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<div class="form-group">
+
+
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Age"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Age"> @Model.Jobss.FirstOrDefault().Age</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().City"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().City">@Model.Jobss.FirstOrDefault().City</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Description"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Description">@Model.Jobss.FirstOrDefault().Description</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Education"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Education">@Model.Jobss.FirstOrDefault().Education</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Deadline"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Deadline">@Model.Jobss.FirstOrDefault().Deadline.ToShortDateString()</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Experience"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Experience">@Model.Jobss.FirstOrDefault().Experience</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Category"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Category">@Model.Jobss.FirstOrDefault().Category</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Position"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Position">@Model.Jobss.FirstOrDefault().Position</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().Price"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().Price">@Model.Jobss.FirstOrDefault().Price</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().RequiredSkills"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().RequiredSkills">@Model.Jobss.FirstOrDefault().RequiredSkills</p>
+
+    <label asp-for="@Model.Jobss.FirstOrDefault().SharedTime"></label>
+    <p asp-for="@Model.Jobss.FirstOrDefault().SharedTime">@Model.Jobss.FirstOrDefault().SharedTime.ToShortDateString()</p>
+
+
+</div>
+
+@if (@User.Identity.IsAuthenticated && User.IsInRole("Freelancer"))
+{
+    <span>
+        @if (@Model.Jobss.FirstOrDefault().FirstRequest == true)
+        {
+            <a asp-action="Index" asp-controller="Freelancer" class="btn btn-block">You have already sent request </a>
+        }
+        else
+        {
+            <a asp-action="SendRequest" asp-route-Id="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Prepare </a>
+        }
+        <a asp-action="Index" asp-controller="Freelancer" class="btn btn-danger">Cancel</a>
+    </span>
+
+}
+
+@if (@User.Identity.IsAuthenticated && User.IsInRole("Client"))
+{
+<span>
+
+    <a asp-action="LookRequestsFromFreelancers" asp-controller="Client" asp-route-jobId="@Model.Jobss.FirstOrDefault().Id" class="btn btn-primary">Look Requests</a>
+    <a asp-action="LookJobs" asp-controller="Client" class="btn btn-danger">Cancel</a>
+    <a asp-action="DeleteJob" asp-controller="Client" asp-route-token="@Model.Jobss.FirstOrDefault().Token" class="btn btn-danger">Delete Job</a>
+</span>
+}
+
+
+

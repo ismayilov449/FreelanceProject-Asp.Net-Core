@@ -37,8 +37,16 @@ namespace FreelanceProject.Repository.Concrete.EntityFramework
 
         private ISalaryRepository _salary;
 
+        private IJobClientRepository _jobsClients;
 
 
+        public IJobClientRepository JobsClients
+        {
+            get
+            {
+                return _jobsClients ?? (_jobsClients = new EfJobClientRepository(projectContext));
+            }
+        }
 
         public ISalaryRepository Salary
         {

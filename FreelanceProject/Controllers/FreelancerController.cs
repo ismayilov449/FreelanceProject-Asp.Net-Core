@@ -26,7 +26,7 @@ namespace FreelanceProject.Controllers
         {
 
 
-            var jobs = uow.Jobs.GetAll();
+            var jobs = uow.Jobs.Find(i=> i.IsApproved == true);
 
 
             jobs = jobs

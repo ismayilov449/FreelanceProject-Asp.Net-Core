@@ -1,0 +1,26 @@
+﻿@model Jobs
+
+@{
+    ViewData["Title"] = "LookRequestsFromFreelancers";
+}
+
+<h1>Waiting for request</h1>
+
+@foreach (var job in Model.Jobss)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@job.Title  </h5>
+            <p class="card-text">Company : @job.Client.CompanyName</p>
+            <p class="card-text"> @job.Price</p>
+            <span>
+
+
+                <a asp-action="Details" asp-controller="Job"  asp-route-jobId="@job.Id" class="btn btn-primary">Details</a>
+                <a asp-action="ApplyJob" asp-controller="Job" asp-route-jobId="@job.Id" class="btn btn-primary">Apply</a>
+                <a asp-action="RejectJob" asp-controller="Job" asp-route-jobId="@job.Id" asp-route-clientId="@job.Client.Id" class="btn btn-danger">Reject</a>
+
+            </span>
+        </div>
+    </div>
+}

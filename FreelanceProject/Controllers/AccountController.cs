@@ -78,10 +78,14 @@ namespace FreelanceProject.Controllers
                         {
                             return RedirectToAction("Index", "Freelancer");
                         }
-                        else
+                        else if(roleresult.FirstOrDefault().ToString() == "Client")
                         {
                           
                             return RedirectToAction("IndexForClient", "Home");
+                        }else
+                        {
+                            return RedirectToAction("Index", "Home" , new { area  = "Admin"});
+                             
                         }
 
                     }
