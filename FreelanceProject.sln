@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreelanceProject", "FreelanceProject\FreelanceProject.csproj", "{4079D386-6417-4EB6-9468-0167C4AF1445}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreelanceProject", "FreelanceProject\FreelanceProject.csproj", "{4079D386-6417-4EB6-9468-0167C4AF1445}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreelanceProjectWebApi", "FreelanceProjectWebApi\FreelanceProjectWebApi.csproj", "{1B47414E-FEA4-4D4F-8142-E5338E93B179}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4079D386-6417-4EB6-9468-0167C4AF1445}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4079D386-6417-4EB6-9468-0167C4AF1445}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4079D386-6417-4EB6-9468-0167C4AF1445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B47414E-FEA4-4D4F-8142-E5338E93B179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B47414E-FEA4-4D4F-8142-E5338E93B179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B47414E-FEA4-4D4F-8142-E5338E93B179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B47414E-FEA4-4D4F-8142-E5338E93B179}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
